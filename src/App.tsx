@@ -7,8 +7,10 @@ import FilterBar from './components/FilterBar'
 import { SessionExport } from './components/SessionExport'
 import './App.css'
 
+type Phase = 'Empathize' | 'Define' | 'Ideate' | 'Prototype' | 'Test'
+
 function App() {
-  const [selectedPhase, setSelectedPhase] = useState<string | null>(null)
+  const [selectedPhase, setSelectedPhase] = useState<Phase | null>(null)
   const [selectedActivity, setSelectedActivity] = useState<Activity | null>(null)
   const [sessionActivities, setSessionActivities] = useState<Activity[]>([])
   const [showExport, setShowExport] = useState(false)
@@ -17,7 +19,15 @@ function App() {
     ageGroup: 'All Ages'
   })
 
-  const phases = ['Empathize', 'Define', 'Ideate', 'Prototype', 'Test']
+  const phases: Phase[] = ['Empathize', 'Define', 'Ideate', 'Prototype', 'Test']
+
+  const phaseDescriptions: Record<Phase, string> = {
+    Empathize: 'Understand your users and their needs through observation and interviews',
+    Define: 'Analyze observations and define the core problems to solve',
+    Ideate: 'Generate creative solutions through brainstorming and collaboration',
+    Prototype: 'Create simple, low-cost versions of your solutions to test',
+    Test: 'Try out your solutions with users and gather feedback'
+  }
 
   const filteredActivities = activities.filter(activity => {
     const matchesPhase = filters.phase === 'All Phases' || activity.phase === filters.phase;
@@ -41,31 +51,45 @@ function App() {
       </header>
 
       <main className="max-w-7xl mx-auto px-4 py-8">
+        <div className="educational-content mb-8">
+          <h4 className="text-lg font-semibold">What is Design Thinking?</h4>
+          <p className="text-gray-600">
+            Design Thinking is a human-centered approach to problem-solving that encourages creativity and innovation. 
+            It's a process that helps students develop empathy, think critically, and create solutions that meet real user needs.
+          </p>
+        </div>
+
         <div className="design-process">
           <div className="process-line"></div>
           <div className="flex justify-between items-center relative z-10">
             {phases.map((phase) => (
-              <button
-                key={phase}
-                onClick={() => setSelectedPhase(phase)}
-                className={`phase-button ${phase.toLowerCase()} px-4 py-2 rounded-full ${
-                  selectedPhase === phase ? 'active' : ''
-                }`}
-              >
-                {phase}
-              </button>
+              <div key={phase} className="tooltip">
+                <button
+                  onClick={() => setSelectedPhase(phase)}
+                  className={`phase-button ${phase.toLowerCase()} px-4 py-2 rounded-full ${
+                    selectedPhase === phase ? 'active' : ''
+                  }`}
+                >
+                  {phase}
+                </button>
+                <span className="tooltip-text">{phaseDescriptions[phase]}</span>
+              </div>
             ))}
           </div>
           <div className="flex justify-between mt-4 text-sm text-gray-600">
-            <span className="diverging">Diverging</span>
-            <span className="converging">Converging</span>
+            <span className="diverging">Diverging (Explore & Generate)</span>
+            <span className="converging">Converging (Refine & Focus)</span>
           </div>
         </div>
 
         {selectedPhase && (
           <>
+            <div className="educational-content mt-8">
+              <h4 className="text-lg font-semibold">{selectedPhase} Phase</h4>
+              <p className="text-gray-600">{phaseDescriptions[selectedPhase]}</p>
+            </div>
             <FilterBar onFilterChange={handleFilterChange} />
-            <div className="bg-white rounded-lg shadow p-6">
+            <div className="bg-white rounded-lg shadow p-6 mt-4">
               <h3 className="text-lg font-semibold mb-4">{selectedPhase} Activities</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {filteredActivities.map((activity) => (
