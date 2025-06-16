@@ -5,6 +5,14 @@ import { ActivityCard } from './components/ActivityCard'
 import { ActivityDetail } from './components/ActivityDetail'
 import FilterBar from './components/FilterBar'
 import { SessionExport } from './components/SessionExport'
+import { GuidedTour } from './components/GuidedTour'
+import {
+  HeartIcon,
+  LightBulbIcon,
+  BeakerIcon,
+  WrenchScrewdriverIcon,
+  ChartBarIcon,
+} from '@heroicons/react/24/outline'
 import './App.css'
 
 type Phase = 'Empathize' | 'Define' | 'Ideate' | 'Prototype' | 'Test'
@@ -20,6 +28,14 @@ function App() {
   })
 
   const phases: Phase[] = ['Empathize', 'Define', 'Ideate', 'Prototype', 'Test']
+
+  const phaseIcons = {
+    Empathize: HeartIcon,
+    Define: ChartBarIcon,
+    Ideate: LightBulbIcon,
+    Prototype: WrenchScrewdriverIcon,
+    Test: BeakerIcon,
+  }
 
   const phaseDescriptions: Record<Phase, string> = {
     Empathize: 'Understand your users and their needs through observation and interviews',
@@ -43,6 +59,8 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <GuidedTour />
+      
       <header className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 py-6">
           <h1 className="text-3xl font-bold text-gray-900">Design Thinking Session Planner</h1>
@@ -62,19 +80,25 @@ function App() {
         <div className="design-process">
           <div className="process-line"></div>
           <div className="flex justify-between items-center relative z-10">
-            {phases.map((phase) => (
-              <div key={phase} className="tooltip">
-                <button
-                  onClick={() => setSelectedPhase(phase)}
-                  className={`phase-button ${phase.toLowerCase()} px-4 py-2 rounded-full ${
-                    selectedPhase === phase ? 'active' : ''
-                  }`}
-                >
-                  {phase}
-                </button>
-                <span className="tooltip-text">{phaseDescriptions[phase]}</span>
-              </div>
-            ))}
+            {phases.map((phase) => {
+              const Icon = phaseIcons[phase]
+              return (
+                <div key={phase} className="tooltip">
+                  <button
+                    onClick={() => setSelectedPhase(phase)}
+                    className={`phase-button ${phase.toLowerCase()} px-4 py-2 rounded-full ${
+                      selectedPhase === phase ? 'active' : ''
+                    }`}
+                  >
+                    <div className="flex items-center gap-2">
+                      <Icon className="w-5 h-5" />
+                      <span>{phase}</span>
+                    </div>
+                  </button>
+                  <span className="tooltip-text">{phaseDescriptions[phase]}</span>
+                </div>
+              )
+            })}
           </div>
           <div className="flex justify-between mt-4 text-sm text-gray-600">
             <span className="diverging">Diverging (Explore & Generate)</span>
@@ -111,7 +135,7 @@ function App() {
 
         {sessionActivities.length > 0 && (
           <div className="mt-8">
-            <div className="bg-white rounded-lg shadow p-6">
+            <div className="bg-white rounded-lg shadow p-6 session-plan">
               <div className="flex justify-between items-center mb-4">
                 <h3 className="text-lg font-semibold">Your Session Plan</h3>
                 <button
