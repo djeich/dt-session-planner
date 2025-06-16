@@ -6,6 +6,7 @@ import { ActivityDetail } from './components/ActivityDetail'
 import FilterBar from './components/FilterBar'
 import { SessionExport } from './components/SessionExport'
 import { GuidedTour } from './components/GuidedTour'
+import { EducationalContent } from './components/EducationalContent'
 import {
   HeartIcon,
   LightBulbIcon,
@@ -69,6 +70,8 @@ function App() {
       </header>
 
       <main className="max-w-7xl mx-auto px-4 py-8">
+        <EducationalContent />
+
         <div className="educational-content mb-8">
           <h4 className="text-lg font-semibold">What is Design Thinking?</h4>
           <p className="text-gray-600">
