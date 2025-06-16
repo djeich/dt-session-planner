@@ -1,86 +1,157 @@
 import { useState } from 'react'
+import { activities } from './data/activities'
+import type { Activity } from './data/activities'
+import { ActivityCard } from './components/ActivityCard'
+import { ActivityDetail } from './components/ActivityDetail'
+import FilterBar from './components/FilterBar'
+import { SessionExport } from './components/SessionExport'
 import './App.css'
 
 function App() {
-  const [sessions, setSessions] = useState<Array<{ id: number; title: string; date: string }>>([])
-  const [newSessionTitle, setNewSessionTitle] = useState('')
-  const [newSessionDate, setNewSessionDate] = useState('')
+  const [selectedPhase, setSelectedPhase] = useState<string | null>(null)
+  const [selectedActivity, setSelectedActivity] = useState<Activity | null>(null)
+  const [sessionActivities, setSessionActivities] = useState<Activity[]>([])
+  const [showSession, setShowSession] = useState(false)
+  const [showExport, setShowExport] = useState(false)
+  const [filters, setFilters] = useState({
+    phase: 'All Phases',
+    ageGroup: 'All Ages'
+  })
 
-  const addSession = () => {
-    if (newSessionTitle && newSessionDate) {
-      setSessions([
-        ...sessions,
-        {
-          id: Date.now(),
-          title: newSessionTitle,
-          date: newSessionDate
-        }
-      ])
-      setNewSessionTitle('')
-      setNewSessionDate('')
-    }
+  const phases = ['Empathize', 'Define', 'Ideate', 'Prototype', 'Test']
+
+  const handleAddToSession = (activity: Activity) => {
+    setSessionActivities([...sessionActivities, activity])
+    setSelectedActivity(null)
   }
 
-  return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-6">DT Session Planner</h1>
-      
-      <div className="mb-8 p-4 bg-white rounded-lg shadow">
-        <h2 className="text-xl font-semibold mb-4">Add New Session</h2>
-        <div className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium mb-1">Session Title</label>
-            <input
-              type="text"
-              value={newSessionTitle}
-              onChange={(e) => setNewSessionTitle(e.target.value)}
-              className="w-full p-2 border rounded"
-              placeholder="Enter session title"
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium mb-1">Date</label>
-            <input
-              type="date"
-              value={newSessionDate}
-              onChange={(e) => setNewSessionDate(e.target.value)}
-              className="w-full p-2 border rounded"
-            />
-          </div>
-          <button
-            onClick={addSession}
-            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-          >
-            Add Session
-          </button>
-        </div>
-      </div>
+  const handleRemoveFromSession = (activityId: string) => {
+    setSessionActivities(sessionActivities.filter(a => a.id !== activityId))
+  }
 
-      <div className="bg-white rounded-lg shadow">
-        <h2 className="text-xl font-semibold p-4 border-b">Upcoming Sessions</h2>
-        {sessions.length === 0 ? (
-          <p className="p-4 text-gray-500">No sessions planned yet</p>
-        ) : (
-          <ul className="divide-y">
-            {sessions.map((session) => (
-              <li key={session.id} className="p-4">
-                <div className="flex justify-between items-center">
-                  <div>
-                    <h3 className="font-medium">{session.title}</h3>
-                    <p className="text-sm text-gray-500">{session.date}</p>
-                  </div>
-                  <button
-                    onClick={() => setSessions(sessions.filter(s => s.id !== session.id))}
-                    className="text-red-500 hover:text-red-700"
-                  >
-                    Delete
-                  </button>
-                </div>
-              </li>
+  const filteredActivities = activities.filter(activity => {
+    const matchesPhase = filters.phase === 'All Phases' || activity.phase === filters.phase;
+    const matchesAgeGroup = filters.ageGroup === 'All Ages' || activity.ageGroup === filters.ageGroup;
+    return matchesPhase && matchesAgeGroup;
+  })
+
+  const totalDuration = sessionActivities.reduce((sum, activity) => sum + activity.duration, 0)
+
+  const handleFilterChange = (newFilters: { phase: string; ageGroup: string }) => {
+    setFilters(newFilters);
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <header className="bg-white shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 py-6">
+          <h1 className="text-3xl font-bold text-gray-900">Design Thinking Session Planner</h1>
+          <p className="mt-2 text-gray-600">Plan engaging design thinking activities for your classroom</p>
+        </div>
+      </header>
+
+      <main className="max-w-7xl mx-auto px-4 py-8">
+        <div className="design-process">
+          <div className="process-line"></div>
+          <div className="flex justify-between items-center relative z-10">
+            {phases.map((phase) => (
+              <button
+                key={phase}
+                onClick={() => setSelectedPhase(phase)}
+                className={`phase-button ${phase.toLowerCase()} px-4 py-2 rounded-full ${
+                  selectedPhase === phase ? 'active' : ''
+                }`}
+              >
+                {phase}
+              </button>
             ))}
-          </ul>
+          </div>
+          <div className="flex justify-between mt-4 text-sm text-gray-600">
+            <span className="diverging">Diverging</span>
+            <span className="converging">Converging</span>
+          </div>
+        </div>
+
+        {selectedPhase && (
+          <>
+            <FilterBar onFilterChange={handleFilterChange} />
+            <div className="bg-white rounded-lg shadow p-6">
+              <h3 className="text-lg font-semibold mb-4">{selectedPhase} Activities</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {filteredActivities.map((activity) => (
+                  <ActivityCard
+                    key={activity.id}
+                    activity={activity}
+                    onSelect={setSelectedActivity}
+                    onAddToSession={() => {
+                      if (!sessionActivities.find(a => a.id === activity.id)) {
+                        setSessionActivities([...sessionActivities, activity])
+                      }
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
+          </>
         )}
-      </div>
+
+        {sessionActivities.length > 0 && (
+          <div className="mt-8">
+            <div className="bg-white rounded-lg shadow p-6">
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="text-lg font-semibold">Your Session Plan</h3>
+                <button
+                  onClick={() => setShowExport(true)}
+                  className="export-button px-4 py-2 rounded-md"
+                >
+                  Export Session
+                </button>
+              </div>
+              <div className="space-y-4">
+                {sessionActivities.map((activity, index) => (
+                  <div key={activity.id} className="session-activity p-4 bg-gray-50 rounded-md">
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <h4 className="font-medium">{activity.name}</h4>
+                        <p className="text-sm text-gray-600">{activity.duration} minutes</p>
+                      </div>
+                      <button
+                        onClick={() => setSessionActivities(sessionActivities.filter((_, i) => i !== index))}
+                        className="text-gray-400 hover:text-red-500"
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  </div>
+                ))}
+                <div className="text-right text-sm text-gray-600">
+                  Total Duration: {totalDuration} minutes
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {selectedActivity && (
+          <ActivityDetail
+            activity={selectedActivity}
+            onClose={() => setSelectedActivity(null)}
+            onAddToSession={() => {
+              if (!sessionActivities.find(a => a.id === selectedActivity.id)) {
+                setSessionActivities([...sessionActivities, selectedActivity])
+              }
+              setSelectedActivity(null)
+            }}
+          />
+        )}
+
+        {showExport && (
+          <SessionExport
+            activities={sessionActivities}
+            onClose={() => setShowExport(false)}
+          />
+        )}
+      </main>
     </div>
   )
 }
