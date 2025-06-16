@@ -11,7 +11,6 @@ function App() {
   const [selectedPhase, setSelectedPhase] = useState<string | null>(null)
   const [selectedActivity, setSelectedActivity] = useState<Activity | null>(null)
   const [sessionActivities, setSessionActivities] = useState<Activity[]>([])
-  const [showSession, setShowSession] = useState(false)
   const [showExport, setShowExport] = useState(false)
   const [filters, setFilters] = useState({
     phase: 'All Phases',
@@ -19,15 +18,6 @@ function App() {
   })
 
   const phases = ['Empathize', 'Define', 'Ideate', 'Prototype', 'Test']
-
-  const handleAddToSession = (activity: Activity) => {
-    setSessionActivities([...sessionActivities, activity])
-    setSelectedActivity(null)
-  }
-
-  const handleRemoveFromSession = (activityId: string) => {
-    setSessionActivities(sessionActivities.filter(a => a.id !== activityId))
-  }
 
   const filteredActivities = activities.filter(activity => {
     const matchesPhase = filters.phase === 'All Phases' || activity.phase === filters.phase;
