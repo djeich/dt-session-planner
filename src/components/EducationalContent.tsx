@@ -131,7 +131,7 @@ export function EducationalContent() {
       <div className="flex space-x-4 mb-6">
         <button
           onClick={() => setActiveTab('overview')}
-          className={`px-4 py-2 rounded-md ${
+          className={`px-4 py-2 rounded-md transition-colors duration-200 ${
             activeTab === 'overview'
               ? 'bg-blue-600 text-white'
               : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -141,7 +141,7 @@ export function EducationalContent() {
         </button>
         <button
           onClick={() => setActiveTab('examples')}
-          className={`px-4 py-2 rounded-md ${
+          className={`px-4 py-2 rounded-md transition-colors duration-200 ${
             activeTab === 'examples'
               ? 'bg-blue-600 text-white'
               : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -151,7 +151,7 @@ export function EducationalContent() {
         </button>
         <button
           onClick={() => setActiveTab('case-studies')}
-          className={`px-4 py-2 rounded-md ${
+          className={`px-4 py-2 rounded-md transition-colors duration-200 ${
             activeTab === 'case-studies'
               ? 'bg-blue-600 text-white'
               : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -171,26 +171,56 @@ export function EducationalContent() {
         >
           {activeTab === 'overview' && (
             <div className="space-y-6">
-              <h3 className="text-2xl font-bold text-gray-900">Design Thinking in Education</h3>
-              <p className="text-gray-600">
+              <h3 className="text-2xl font-bold text-gray-900 leading-tight">Design Thinking in Education</h3>
+              <p className="text-gray-600 leading-relaxed text-base">
                 Design Thinking is a powerful approach to problem-solving that helps students develop essential skills
                 like empathy, critical thinking, and creativity. It's particularly effective in education because it:
               </p>
-              <ul className="list-disc list-inside space-y-2 text-gray-600">
-                <li>Encourages student-centered learning</li>
-                <li>Promotes collaboration and teamwork</li>
-                <li>Develops real-world problem-solving skills</li>
-                <li>Builds confidence through hands-on experience</li>
-                <li>Fosters innovation and creativity</li>
+              <ul className="space-y-3 text-gray-600">
+                <li className="flex items-start">
+                  <span className="inline-block w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                  <span className="leading-relaxed">Encourages student-centered learning</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="inline-block w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                  <span className="leading-relaxed">Promotes collaboration and teamwork</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="inline-block w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                  <span className="leading-relaxed">Develops real-world problem-solving skills</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="inline-block w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                  <span className="leading-relaxed">Builds confidence through hands-on experience</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="inline-block w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                  <span className="leading-relaxed">Fosters innovation and creativity</span>
+                </li>
               </ul>
-              <div className="bg-blue-50 p-4 rounded-md">
-                <h4 className="font-semibold text-blue-800 mb-2">Tips for Teachers</h4>
-                <ul className="list-disc list-inside space-y-1 text-blue-700">
-                  <li>Start with simple, relatable problems</li>
-                  <li>Encourage wild ideas during ideation</li>
-                  <li>Use physical materials for prototyping</li>
-                  <li>Celebrate failures as learning opportunities</li>
-                  <li>Connect projects to real-world contexts</li>
+              <div className="bg-blue-50 p-6 rounded-lg border border-blue-100">
+                <h4 className="font-semibold text-blue-800 mb-3 text-lg">Tips for Teachers</h4>
+                <ul className="space-y-2 text-blue-700">
+                  <li className="flex items-start">
+                    <span className="inline-block w-2 h-2 bg-blue-600 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                    <span className="leading-relaxed">Start with simple, relatable problems</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="inline-block w-2 h-2 bg-blue-600 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                    <span className="leading-relaxed">Encourage wild ideas during ideation</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="inline-block w-2 h-2 bg-blue-600 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                    <span className="leading-relaxed">Use physical materials for prototyping</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="inline-block w-2 h-2 bg-blue-600 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                    <span className="leading-relaxed">Celebrate failures as learning opportunities</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="inline-block w-2 h-2 bg-blue-600 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                    <span className="leading-relaxed">Connect projects to real-world contexts</span>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -198,21 +228,21 @@ export function EducationalContent() {
 
           {activeTab === 'examples' && (
             <div className="space-y-6">
-              <h3 className="text-2xl font-bold text-gray-900">Visual Examples by Phase</h3>
+              <h3 className="text-2xl font-bold text-gray-900 leading-tight">Visual Examples by Phase</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {Object.entries(visualExamples).map(([phase, examples]) => (
                   <div key={phase} className="space-y-4">
-                    <h4 className="text-xl font-semibold text-gray-800">{phase}</h4>
+                    <h4 className="text-xl font-semibold text-gray-800 leading-tight">{phase}</h4>
                     {examples.map((example, index) => (
-                      <div key={index} className="bg-gray-50 rounded-lg overflow-hidden">
+                      <div key={index} className="bg-gray-50 rounded-lg overflow-hidden border border-gray-200">
                         <img
                           src={example.image}
                           alt={example.title}
                           className="w-full h-48 object-cover"
                         />
                         <div className="p-4">
-                          <h5 className="font-semibold text-gray-900">{example.title}</h5>
-                          <p className="text-gray-600 text-sm">{example.description}</p>
+                          <h5 className="font-semibold text-gray-900 mb-2 leading-tight">{example.title}</h5>
+                          <p className="text-gray-600 text-sm leading-relaxed">{example.description}</p>
                         </div>
                       </div>
                     ))}
@@ -224,17 +254,17 @@ export function EducationalContent() {
 
           {activeTab === 'case-studies' && (
             <div className="space-y-8">
-              <h3 className="text-2xl font-bold text-gray-900">Success Stories</h3>
+              <h3 className="text-2xl font-bold text-gray-900 leading-tight">Success Stories</h3>
               {caseStudies.map((study, index) => (
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
-                  className="bg-gray-50 rounded-lg p-6"
+                  className="bg-gray-50 rounded-lg p-6 border border-gray-200"
                 >
-                  <h4 className="text-xl font-semibold text-gray-900 mb-2">{study.title}</h4>
-                  <p className="text-gray-600 mb-4">{study.description}</p>
+                  <h4 className="text-xl font-semibold text-gray-900 mb-3 leading-tight">{study.title}</h4>
+                  <p className="text-gray-600 mb-6 leading-relaxed">{study.description}</p>
                   <div className="space-y-4">
                     {study.phases.map((phase, phaseIndex) => (
                       <div key={phaseIndex} className="flex items-start space-x-4">
@@ -243,12 +273,12 @@ export function EducationalContent() {
                             {phase.phase}
                           </span>
                         </div>
-                        <p className="text-gray-600">{phase.activity}</p>
+                        <p className="text-gray-600 leading-relaxed flex-1">{phase.activity}</p>
                       </div>
                     ))}
                   </div>
-                  <div className="mt-4 pt-4 border-t border-gray-200">
-                    <p className="font-semibold text-green-600">Outcome: {study.outcome}</p>
+                  <div className="mt-6 pt-4 border-t border-gray-200">
+                    <p className="font-semibold text-green-600 leading-relaxed">Outcome: {study.outcome}</p>
                   </div>
                 </motion.div>
               ))}
