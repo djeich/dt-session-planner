@@ -1,95 +1,175 @@
 import { useState, useEffect } from 'react'
-import Joyride, { type CallBackProps, type Step, STATUS } from 'react-joyride'
+import { motion, AnimatePresence } from 'framer-motion'
+import { XMarkIcon, ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
 
-const steps: Step[] = [
+const steps = [
   {
+    id: 'welcome',
+    title: 'Welcome to Design Thinking!',
+    content: 'This tool helps you plan engaging design thinking sessions for your classroom. Let\'s take a quick tour!',
+    target: null,
+  },
+  {
+    id: 'process',
+    title: 'The Design Thinking Process',
+    content: 'This visual shows the five phases of design thinking. Each phase has its own color and purpose. Hover over them to learn more!',
     target: '.design-process',
-    content: 'Welcome to the Design Thinking Session Planner! This is the process visualization that shows the five phases of design thinking.',
-    placement: 'bottom' as const,
-    disableBeacon: true,
   },
   {
+    id: 'phases',
+    title: 'Phase Buttons',
+    content: 'Click on any phase to see activities for that stage. Each phase helps students develop different skills.',
     target: '.phase-button',
-    content: 'Each phase has its own color and purpose. Hover over them to learn more!',
-    placement: 'bottom' as const,
   },
   {
+    id: 'diverging',
+    title: 'Diverging & Converging',
+    content: 'The process alternates between exploring many ideas (diverging) and focusing on the best ones (converging).',
     target: '.diverging',
-    content: 'The process alternates between diverging (exploring many ideas) and converging (focusing on the best ones).',
-    placement: 'bottom' as const,
   },
   {
+    id: 'filters',
+    title: 'Filter Activities',
+    content: 'Use these filters to find activities that match your students\' age and the phase you\'re working on.',
     target: '.filter-bar',
-    content: 'Filter activities by phase and age group to find the perfect fit for your classroom.',
-    placement: 'bottom' as const,
   },
   {
+    id: 'activities',
+    title: 'Activity Cards',
+    content: 'Each card shows key information like duration, materials needed, and age group. Click "View Details" for more info.',
     target: '.activity-card',
-    content: 'Each activity card shows key information like duration, materials needed, and age group.',
-    placement: 'top' as const,
   },
   {
+    id: 'session',
+    title: 'Build Your Session',
+    content: 'Add activities to build your session plan. The total duration is automatically calculated.',
     target: '.session-plan',
-    content: 'Build your session by adding activities. The total duration is automatically calculated.',
-    placement: 'left' as const,
   },
   {
+    id: 'export',
+    title: 'Export Your Plan',
+    content: 'When you\'re ready, export your session plan to use in your classroom!',
     target: '.export-button',
-    content: 'Export your session plan when you\'re ready to use it in your classroom!',
-    placement: 'left' as const,
   },
 ]
 
 export function GuidedTour() {
-  const [run, setRun] = useState(false)
+  const [isActive, setIsActive] = useState(false)
+  const [currentStep, setCurrentStep] = useState(0)
+  const [showOverlay, setShowOverlay] = useState(false)
 
   useEffect(() => {
     // Check if this is the user's first visit
     const hasSeenTour = localStorage.getItem('hasSeenTour')
     if (!hasSeenTour) {
-      setRun(true)
+      // Delay the tour start to let the page load
+      const timer = setTimeout(() => {
+        setIsActive(true)
+        setShowOverlay(true)
+      }, 2000)
+      return () => clearTimeout(timer)
     }
   }, [])
 
-  const handleJoyrideCallback = (data: CallBackProps) => {
-    const { status } = data
-    if (status === STATUS.FINISHED || status === STATUS.SKIPPED) {
-      // Save that the user has seen the tour
-      localStorage.setItem('hasSeenTour', 'true')
-      setRun(false)
+  const handleNext = () => {
+    if (currentStep < steps.length - 1) {
+      setCurrentStep(currentStep + 1)
+    } else {
+      handleFinish()
     }
   }
 
+  const handlePrevious = () => {
+    if (currentStep > 0) {
+      setCurrentStep(currentStep - 1)
+    }
+  }
+
+  const handleFinish = () => {
+    localStorage.setItem('hasSeenTour', 'true')
+    setIsActive(false)
+    setShowOverlay(false)
+  }
+
+  const handleSkip = () => {
+    handleFinish()
+  }
+
+  if (!isActive) return null
+
+  const step = steps[currentStep]
+
   return (
-    <Joyride
-      steps={steps}
-      run={run}
-      continuous
-      showProgress
-      showSkipButton
-      callback={handleJoyrideCallback}
-      styles={{
-        options: {
-          primaryColor: '#3b82f6',
-          zIndex: 1000,
-        },
-        tooltip: {
-          fontSize: '1rem',
-          padding: '1rem',
-        },
-        buttonNext: {
-          backgroundColor: '#3b82f6',
-          fontSize: '0.875rem',
-          padding: '0.5rem 1rem',
-        },
-        buttonBack: {
-          color: '#4b5563',
-          marginRight: '0.5rem',
-        },
-        buttonSkip: {
-          color: '#6b7280',
-        },
-      }}
-    />
+    <>
+      {/* Overlay */}
+      <AnimatePresence>
+        {showOverlay && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black bg-opacity-50 z-40"
+            onClick={handleNext}
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Tour Tooltip */}
+      <AnimatePresence>
+        {isActive && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            className="fixed z-50 bg-white rounded-lg shadow-xl max-w-md p-6"
+            style={{
+              top: step.target ? '50%' : '20%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+            }}
+          >
+            <div className="flex justify-between items-start mb-4">
+              <h3 className="text-lg font-semibold text-gray-900">{step.title}</h3>
+              <button
+                onClick={handleSkip}
+                className="text-gray-400 hover:text-gray-600"
+              >
+                <XMarkIcon className="w-5 h-5" />
+              </button>
+            </div>
+            
+            <p className="text-gray-600 mb-6">{step.content}</p>
+            
+            <div className="flex justify-between items-center">
+              <div className="text-sm text-gray-500">
+                {currentStep + 1} of {steps.length}
+              </div>
+              
+              <div className="flex space-x-2">
+                {currentStep > 0 && (
+                  <button
+                    onClick={handlePrevious}
+                    className="px-3 py-2 text-gray-600 hover:text-gray-800 flex items-center"
+                  >
+                    <ChevronLeftIcon className="w-4 h-4 mr-1" />
+                    Previous
+                  </button>
+                )}
+                
+                <button
+                  onClick={handleNext}
+                  className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 flex items-center"
+                >
+                  {currentStep === steps.length - 1 ? 'Finish' : 'Next'}
+                  {currentStep < steps.length - 1 && (
+                    <ChevronRightIcon className="w-4 h-4 ml-1" />
+                  )}
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   )
 } 
