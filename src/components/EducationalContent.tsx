@@ -176,49 +176,49 @@ export function EducationalContent() {
                 Design Thinking is a powerful approach to problem-solving that helps students develop essential skills
                 like empathy, critical thinking, and creativity. It's particularly effective in education because it:
               </p>
-              <ul className="space-y-3 text-gray-600">
+              <ul className="space-y-2 text-gray-600">
                 <li className="flex items-start">
-                  <span className="inline-block w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                  <span className="inline-block w-1.5 h-1.5 bg-blue-500 rounded-full mt-2.5 mr-2.5 flex-shrink-0"></span>
                   <span className="leading-relaxed">Encourages student-centered learning</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="inline-block w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                  <span className="inline-block w-1.5 h-1.5 bg-blue-500 rounded-full mt-2.5 mr-2.5 flex-shrink-0"></span>
                   <span className="leading-relaxed">Promotes collaboration and teamwork</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="inline-block w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                  <span className="inline-block w-1.5 h-1.5 bg-blue-500 rounded-full mt-2.5 mr-2.5 flex-shrink-0"></span>
                   <span className="leading-relaxed">Develops real-world problem-solving skills</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="inline-block w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                  <span className="inline-block w-1.5 h-1.5 bg-blue-500 rounded-full mt-2.5 mr-2.5 flex-shrink-0"></span>
                   <span className="leading-relaxed">Builds confidence through hands-on experience</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="inline-block w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                  <span className="inline-block w-1.5 h-1.5 bg-blue-500 rounded-full mt-2.5 mr-2.5 flex-shrink-0"></span>
                   <span className="leading-relaxed">Fosters innovation and creativity</span>
                 </li>
               </ul>
               <div className="bg-blue-50 p-6 rounded-lg border border-blue-100">
                 <h4 className="font-semibold text-blue-800 mb-3 text-lg">Tips for Teachers</h4>
-                <ul className="space-y-2 text-blue-700">
+                <ul className="space-y-1.5 text-blue-700">
                   <li className="flex items-start">
-                    <span className="inline-block w-2 h-2 bg-blue-600 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                    <span className="inline-block w-1.5 h-1.5 bg-blue-600 rounded-full mt-2.5 mr-2.5 flex-shrink-0"></span>
                     <span className="leading-relaxed">Start with simple, relatable problems</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="inline-block w-2 h-2 bg-blue-600 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                    <span className="inline-block w-1.5 h-1.5 bg-blue-600 rounded-full mt-2.5 mr-2.5 flex-shrink-0"></span>
                     <span className="leading-relaxed">Encourage wild ideas during ideation</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="inline-block w-2 h-2 bg-blue-600 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                    <span className="inline-block w-1.5 h-1.5 bg-blue-600 rounded-full mt-2.5 mr-2.5 flex-shrink-0"></span>
                     <span className="leading-relaxed">Use physical materials for prototyping</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="inline-block w-2 h-2 bg-blue-600 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                    <span className="inline-block w-1.5 h-1.5 bg-blue-600 rounded-full mt-2.5 mr-2.5 flex-shrink-0"></span>
                     <span className="leading-relaxed">Celebrate failures as learning opportunities</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="inline-block w-2 h-2 bg-blue-600 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                    <span className="inline-block w-1.5 h-1.5 bg-blue-600 rounded-full mt-2.5 mr-2.5 flex-shrink-0"></span>
                     <span className="leading-relaxed">Connect projects to real-world contexts</span>
                   </li>
                 </ul>

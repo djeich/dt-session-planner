@@ -41,14 +41,14 @@ export function ActivityCard({ activity, onSelect, onAddToSession }: ActivityCar
     <div className="activity-card bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all duration-300">
       <div className="p-6">
         <div className="flex justify-between items-start mb-4">
-          <h3 className="text-xl font-semibold text-gray-900">{activity.name}</h3>
+          <h3 className="text-xl font-semibold text-gray-900 leading-tight">{activity.name}</h3>
           <span className={`phase-badge ${getPhaseColor(activity.phase)}`}>
             {activity.phase}
           </span>
         </div>
         
         <div className="space-y-4">
-          <p className="text-gray-600">{activity.description}</p>
+          <p className="text-gray-600 leading-relaxed">{activity.description}</p>
           
           <div className="flex flex-wrap gap-2">
             <span className={`age-badge ${getAgeGroupColor(activity.ageGroup)}`}>
@@ -61,9 +61,12 @@ export function ActivityCard({ activity, onSelect, onAddToSession }: ActivityCar
 
           <div className="mt-4">
             <h4 className="text-sm font-semibold text-gray-700 mb-2">Materials Needed:</h4>
-            <ul className="list-disc list-inside text-sm text-gray-600 space-y-1">
+            <ul className="space-y-1 text-sm text-gray-600">
               {activity.materials.map((material, index) => (
-                <li key={index}>{material}</li>
+                <li key={index} className="flex items-start">
+                  <span className="inline-block w-1 h-1 bg-gray-400 rounded-full mt-2 mr-2 flex-shrink-0"></span>
+                  <span className="leading-relaxed">{material}</span>
+                </li>
               ))}
             </ul>
           </div>
@@ -71,7 +74,7 @@ export function ActivityCard({ activity, onSelect, onAddToSession }: ActivityCar
           <div className="mt-4 flex justify-between items-center">
             <button
               onClick={() => onSelect(activity)}
-              className="text-blue-600 hover:text-blue-800 font-medium text-sm"
+              className="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-200"
             >
               View Details
             </button>
