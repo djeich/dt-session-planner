@@ -176,51 +176,21 @@ export function EducationalContent() {
                 Design Thinking is a powerful approach to problem-solving that helps students develop essential skills
                 like empathy, critical thinking, and creativity. It's particularly effective in education because it:
               </p>
-              <ul className="space-y-2 text-gray-600">
-                <li className="flex items-start">
-                  <span className="inline-block w-1.5 h-1.5 bg-blue-500 rounded-full mt-2.5 mr-2.5 flex-shrink-0"></span>
-                  <span className="leading-relaxed">Encourages student-centered learning</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="inline-block w-1.5 h-1.5 bg-blue-500 rounded-full mt-2.5 mr-2.5 flex-shrink-0"></span>
-                  <span className="leading-relaxed">Promotes collaboration and teamwork</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="inline-block w-1.5 h-1.5 bg-blue-500 rounded-full mt-2.5 mr-2.5 flex-shrink-0"></span>
-                  <span className="leading-relaxed">Develops real-world problem-solving skills</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="inline-block w-1.5 h-1.5 bg-blue-500 rounded-full mt-2.5 mr-2.5 flex-shrink-0"></span>
-                  <span className="leading-relaxed">Builds confidence through hands-on experience</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="inline-block w-1.5 h-1.5 bg-blue-500 rounded-full mt-2.5 mr-2.5 flex-shrink-0"></span>
-                  <span className="leading-relaxed">Fosters innovation and creativity</span>
-                </li>
+              <ul className="list-disc pl-6 text-gray-600 space-y-1">
+                <li>Encourages student-centered learning</li>
+                <li>Promotes collaboration and teamwork</li>
+                <li>Develops real-world problem-solving skills</li>
+                <li>Builds confidence through hands-on experience</li>
+                <li>Fosters innovation and creativity</li>
               </ul>
               <div className="bg-blue-50 p-6 rounded-lg border border-blue-100">
                 <h4 className="font-semibold text-blue-800 mb-3 text-lg">Tips for Teachers</h4>
-                <ul className="space-y-1.5 text-blue-700">
-                  <li className="flex items-start">
-                    <span className="inline-block w-1.5 h-1.5 bg-blue-600 rounded-full mt-2.5 mr-2.5 flex-shrink-0"></span>
-                    <span className="leading-relaxed">Start with simple, relatable problems</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="inline-block w-1.5 h-1.5 bg-blue-600 rounded-full mt-2.5 mr-2.5 flex-shrink-0"></span>
-                    <span className="leading-relaxed">Encourage wild ideas during ideation</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="inline-block w-1.5 h-1.5 bg-blue-600 rounded-full mt-2.5 mr-2.5 flex-shrink-0"></span>
-                    <span className="leading-relaxed">Use physical materials for prototyping</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="inline-block w-1.5 h-1.5 bg-blue-600 rounded-full mt-2.5 mr-2.5 flex-shrink-0"></span>
-                    <span className="leading-relaxed">Celebrate failures as learning opportunities</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="inline-block w-1.5 h-1.5 bg-blue-600 rounded-full mt-2.5 mr-2.5 flex-shrink-0"></span>
-                    <span className="leading-relaxed">Connect projects to real-world contexts</span>
-                  </li>
+                <ul className="list-disc pl-6 text-blue-700 space-y-1">
+                  <li>Start with simple, relatable problems</li>
+                  <li>Encourage wild ideas during ideation</li>
+                  <li>Use physical materials for prototyping</li>
+                  <li>Celebrate failures as learning opportunities</li>
+                  <li>Connect projects to real-world contexts</li>
                 </ul>
               </div>
             </div>
