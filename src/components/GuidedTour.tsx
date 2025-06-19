@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { XMarkIcon, ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
+import { X, ChevronLeft, ChevronRight } from 'lucide-react'
 
 const steps = [
   {
@@ -134,7 +134,7 @@ export function GuidedTour() {
                 onClick={handleSkip}
                 className="text-gray-400 hover:text-gray-600"
               >
-                <XMarkIcon className="w-5 h-5" />
+                <X className="w-5 h-5" />
               </button>
             </div>
             
@@ -151,7 +151,7 @@ export function GuidedTour() {
                     onClick={handlePrevious}
                     className="px-3 py-2 text-gray-600 hover:text-gray-800 flex items-center"
                   >
-                    <ChevronLeftIcon className="w-4 h-4 mr-1" />
+                    <ChevronLeft className="w-4 h-4 mr-1" />
                     Previous
                   </button>
                 )}
@@ -162,7 +162,7 @@ export function GuidedTour() {
                 >
                   {currentStep === steps.length - 1 ? 'Finish' : 'Next'}
                   {currentStep < steps.length - 1 && (
-                    <ChevronRightIcon className="w-4 h-4 ml-1" />
+                    <ChevronRight className="w-4 h-4 ml-1" />
                   )}
                 </button>
               </div>
