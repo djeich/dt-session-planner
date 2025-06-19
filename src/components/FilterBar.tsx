@@ -1,36 +1,51 @@
+import React from 'react'
+import { Filter } from 'lucide-react'
+
 interface FilterBarProps {
-  onFilterChange: (filters: { phase: string; ageGroup: string }) => void;
+  onFilterChange: (filters: { phase: string; ageGroup: string }) => void
 }
 
-const FilterBar = ({ onFilterChange }: FilterBarProps) => {
+export default function FilterBar({ onFilterChange }: FilterBarProps) {
   const phases = ['All Phases', 'Empathize', 'Define', 'Ideate', 'Prototype', 'Test']
-  const ageGroups = ['All Ages', 'Elementary School', 'Middle School', 'High School']
+  const ageGroups = ['All Ages', 'Elementary', 'Middle School', 'High School', 'University']
 
   return (
-    <div className="bg-white rounded-lg shadow p-4 mb-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div className="filter-bar">
+      <div className="flex items-center gap-2 mb-4">
+        <Filter className="w-5 h-5 text-blue-500" />
+        <h3 className="font-semibold text-gray-900">Filter Activities</h3>
+      </div>
+      
+      <div className="grid md:grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Phase</label>
+          <label htmlFor="phase" className="block text-sm font-medium text-gray-700 mb-1">
+            Phase
+          </label>
           <select
+            id="phase"
             onChange={(e) => onFilterChange({ phase: e.target.value, ageGroup: 'All Ages' })}
-            className="w-full p-2 border rounded-md"
+            className="w-full p-2 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           >
-            {phases.map((phase) => (
+            {phases.map(phase => (
               <option key={phase} value={phase}>
                 {phase}
               </option>
             ))}
           </select>
         </div>
+
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Age Group</label>
+          <label htmlFor="ageGroup" className="block text-sm font-medium text-gray-700 mb-1">
+            Age Group
+          </label>
           <select
+            id="ageGroup"
             onChange={(e) => onFilterChange({ phase: 'All Phases', ageGroup: e.target.value })}
-            className="w-full p-2 border rounded-md"
+            className="w-full p-2 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           >
-            {ageGroups.map((ageGroup) => (
-              <option key={ageGroup} value={ageGroup}>
-                {ageGroup}
+            {ageGroups.map(age => (
+              <option key={age} value={age}>
+                {age}
               </option>
             ))}
           </select>
@@ -38,6 +53,4 @@ const FilterBar = ({ onFilterChange }: FilterBarProps) => {
       </div>
     </div>
   )
-}
-
-export default FilterBar 
+} 

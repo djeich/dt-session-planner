@@ -1,99 +1,111 @@
+import React from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { X, Clock, Users, Plus, ClipboardList, Target, ArrowRight } from 'lucide-react'
 import type { Activity } from '../data/activities'
-import { ClipboardList, Clock } from 'lucide-react'
-import { CheckCircleIcon, XMarkIcon } from '@heroicons/react/24/outline'
 
 interface ActivityDetailProps {
-  activity: Activity;
-  onClose: () => void;
-  onAddToSession: () => void;
+  activity: Activity
+  onClose: () => void
+  onAddToSession: () => void
 }
 
-export const ActivityDetail = ({ activity, onClose, onAddToSession }: ActivityDetailProps) => {
+export function ActivityDetail({ activity, onClose, onAddToSession }: ActivityDetailProps) {
+  const phaseColors = {
+    Empathize: 'bg-amber-50 text-amber-700 border-amber-200',
+    Define: 'bg-blue-50 text-blue-700 border-blue-200',
+    Ideate: 'bg-purple-50 text-purple-700 border-purple-200',
+    Prototype: 'bg-green-50 text-green-700 border-green-200',
+    Test: 'bg-red-50 text-red-700 border-red-200'
+  }
+
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-      <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border-2 border-blue-100">
-        <div className="bg-gradient-to-r from-blue-500 to-purple-500 rounded-t-2xl px-6 py-5 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <h2 className="text-2xl font-bold text-white drop-shadow">{activity.name}</h2>
-          </div>
-          <button
-            onClick={onClose}
-            className="text-white hover:text-blue-100 transition-colors duration-200"
-            aria-label="Close"
-          >
-            <XMarkIcon className="w-6 h-6" />
-          </button>
-        </div>
-        <div className="p-6 space-y-6">
-          <div className="grid grid-cols-2 gap-6 mb-6">
+    <motion.div
+      className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      onClick={onClose}
+    >
+      <motion.div
+        className="bg-white rounded-2xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.9, opacity: 0 }}
+        onClick={e => e.stopPropagation()}
+      >
+        <div className="p-6 md:p-8">
+          <div className="flex justify-between items-start mb-6">
             <div>
-              <h3 className="font-semibold mb-2 flex items-center gap-1"><Clock size={18} /> Duration</h3>
-              <p className="text-gray-600">{activity.duration} minutes</p>
+              <span className={`phase-badge ${phaseColors[activity.phase]} mb-3 inline-block`}>
+                {activity.phase}
+              </span>
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">{activity.name}</h2>
+              <div className="flex items-center gap-4 text-sm text-gray-500">
+                <span className="flex items-center gap-1">
+                  <Clock className="w-4 h-4" />
+                  {activity.duration} minutes
+                </span>
+                <span className="flex items-center gap-1">
+                  <Users className="w-4 h-4" />
+                  {activity.ageGroup}
+                </span>
+              </div>
             </div>
-            <div>
-              <h3 className="font-semibold mb-2 flex items-center gap-1"><ClipboardList size={18} /> Age Group</h3>
-              <p className="text-gray-600">{activity.ageGroup}</p>
-            </div>
+            <button
+              onClick={onClose}
+              className="p-2 rounded-full hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-colors"
+            >
+              <X className="w-5 h-5" />
+            </button>
           </div>
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="bg-white rounded-xl border border-blue-100 p-4 shadow-sm">
-              <h3 className="text-lg font-semibold text-blue-700 mb-2 flex items-center gap-2">
-                <ClipboardList size={18} /> Materials Needed
+
+          <div className="space-y-6">
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-3 flex items-center gap-2">
+                <Target className="w-5 h-5 text-blue-500" />
+                Description
               </h3>
-              <ul className="space-y-1 text-gray-700">
+              <p className="text-gray-600 leading-relaxed">
+                {activity.description}
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-3 flex items-center gap-2">
+                <ClipboardList className="w-5 h-5 text-blue-500" />
+                Materials Needed
+              </h3>
+              <ul className="space-y-2">
                 {activity.materials.map((material, index) => (
-                  <li key={index} className="flex items-start">
-                    <span className="inline-block w-3 h-3 bg-blue-400 rounded-full mt-1.5 mr-2 flex-shrink-0"></span>
-                    <span className="leading-relaxed">{material}</span>
-                  </li>
+                  <motion.li
+                    key={index}
+                    className="flex items-start gap-3 text-gray-600"
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                  >
+                    <span className="inline-block w-1.5 h-1.5 bg-blue-400 rounded-full mt-2.5" />
+                    <span>{material}</span>
+                  </motion.li>
                 ))}
               </ul>
             </div>
-            <div className="bg-white rounded-xl border border-purple-100 p-4 shadow-sm">
-              <h3 className="text-lg font-semibold text-purple-700 mb-2 flex items-center gap-2">
-                <Clock size={18} /> Instructions
-              </h3>
-              <ol className="space-y-1 text-gray-700">
-                {activity.instructions.map((instruction, index) => (
-                  <li key={index} className="flex items-start">
-                    <span className="inline-block w-6 h-6 bg-purple-100 text-purple-700 rounded-full text-xs font-bold flex items-center justify-center mt-0.5 mr-2 flex-shrink-0">
-                      {index + 1}
-                    </span>
-                    <span className="leading-relaxed">{instruction}</span>
-                  </li>
-                ))}
-              </ol>
+
+            <div className="pt-6 border-t">
+              <button
+                onClick={onAddToSession}
+                className="btn btn-primary w-full flex items-center justify-center gap-2"
+              >
+                <Plus className="w-4 h-4" />
+                Add to Session Plan
+                <ArrowRight className="w-4 h-4 ml-1" />
+              </button>
             </div>
           </div>
-          <div className="bg-green-50 rounded-xl border border-green-100 p-4 shadow-sm">
-            <h3 className="text-lg font-semibold text-green-700 mb-2 flex items-center gap-2">
-              <CheckCircleIcon className="w-4 h-4 text-green-400" /> Tips
-            </h3>
-            <ul className="space-y-1 text-gray-700">
-              {activity.tips.map((tip, index) => (
-                <li key={index} className="flex items-start">
-                  <span className="inline-block w-3 h-3 bg-green-400 rounded-full mt-1.5 mr-2 flex-shrink-0"></span>
-                  <span className="leading-relaxed">{tip}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="flex justify-end items-center pt-4 border-t border-gray-100 mt-2 gap-4">
-            <button
-              onClick={onClose}
-              className="px-5 py-2 rounded-lg bg-gray-100 text-gray-700 font-semibold hover:bg-gray-200 transition-colors duration-200"
-            >
-              Close
-            </button>
-            <button
-              onClick={onAddToSession}
-              className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-6 py-2 rounded-lg font-semibold shadow hover:from-blue-600 hover:to-purple-600 transition-all duration-200"
-            >
-              + Add to Session
-            </button>
-          </div>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   )
-} 
+}
+
+export type { ActivityDetailProps } 

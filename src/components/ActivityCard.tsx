@@ -1,90 +1,106 @@
+import React from 'react'
 import type { Activity } from '../data/activities'
-import { Clock, ClipboardList } from 'lucide-react'
+import { Clock, ClipboardList, Plus, ArrowRight, Users } from 'lucide-react'
+import { motion } from 'framer-motion'
 
 interface ActivityCardProps {
   activity: Activity
   onSelect: (activity: Activity) => void
   onAddToSession: () => void
+  isSelected?: boolean
 }
 
-export function ActivityCard({ activity, onSelect, onAddToSession }: ActivityCardProps) {
+export function ActivityCard({ activity, onSelect, onAddToSession, isSelected = false }: ActivityCardProps) {
   const getPhaseColor = (phase: string) => {
     switch (phase) {
       case 'Empathize':
-        return 'bg-amber-50 border-amber-200'
+        return 'bg-gradient-to-br from-amber-50 to-amber-100 border-amber-200 hover:from-amber-100 hover:to-amber-200'
       case 'Define':
-        return 'bg-blue-50 border-blue-200'
+        return 'bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200 hover:from-blue-100 hover:to-blue-200'
       case 'Ideate':
-        return 'bg-purple-50 border-purple-200'
+        return 'bg-gradient-to-br from-purple-50 to-purple-100 border-purple-200 hover:from-purple-100 hover:to-purple-200'
       case 'Prototype':
-        return 'bg-green-50 border-green-200'
+        return 'bg-gradient-to-br from-green-50 to-green-100 border-green-200 hover:from-green-100 hover:to-green-200'
       case 'Test':
-        return 'bg-red-50 border-red-200'
+        return 'bg-gradient-to-br from-red-50 to-red-100 border-red-200 hover:from-red-100 hover:to-red-200'
       default:
-        return 'bg-gray-50 border-gray-200'
+        return 'bg-gradient-to-br from-gray-50 to-gray-100 border-gray-200'
+    }
+  }
+
+  const getPhaseBadgeColor = (phase: string) => {
+    switch (phase) {
+      case 'Empathize':
+        return 'bg-amber-100 text-amber-800 border-amber-200'
+      case 'Define':
+        return 'bg-blue-100 text-blue-800 border-blue-200'
+      case 'Ideate':
+        return 'bg-purple-100 text-purple-800 border-purple-200'
+      case 'Prototype':
+        return 'bg-green-100 text-green-800 border-green-200'
+      case 'Test':
+        return 'bg-red-100 text-red-800 border-red-200'
+      default:
+        return 'bg-gray-100 text-gray-800 border-gray-200'
     }
   }
 
   const getAgeGroupColor = (ageGroup: string) => {
     switch (ageGroup) {
       case 'Elementary School':
-        return 'bg-pink-100 text-pink-800'
+        return 'bg-pink-50 text-pink-700 border border-pink-200'
       case 'Middle School':
-        return 'bg-indigo-100 text-indigo-800'
+        return 'bg-indigo-50 text-indigo-700 border border-indigo-200'
       case 'High School':
-        return 'bg-cyan-100 text-cyan-800'
+        return 'bg-cyan-50 text-cyan-700 border border-cyan-200'
       default:
-        return 'bg-gray-100 text-gray-800'
+        return 'bg-gray-50 text-gray-700 border border-gray-200'
     }
   }
 
   return (
-    <div className={`activity-card rounded-xl shadow-md overflow-hidden border-2 transition-all duration-300 hover:shadow-xl ${getPhaseColor(activity.phase)}`}>
-      <div className="p-6 flex flex-col h-full">
-        <div className="flex justify-between items-start mb-4">
-          <h3 className="text-xl font-semibold text-gray-900 leading-tight">{activity.name}</h3>
-          <span className="phase-badge bg-white border px-3 py-1 text-xs font-bold uppercase tracking-wide shadow-sm">
-            {activity.phase}
+    <motion.div
+      className={`activity-card ${isSelected ? 'ring-2 ring-blue-500 ring-offset-2' : ''}`}
+      whileHover={{ y: -4 }}
+      transition={{ duration: 0.2 }}
+    >
+      <div className="flex justify-between items-start mb-4">
+        <span className={`phase-badge ${getPhaseBadgeColor(activity.phase)}`}>
+          {activity.phase}
+        </span>
+        <motion.button
+          onClick={onAddToSession}
+          className="p-2 rounded-full text-gray-400 hover:text-blue-500 hover:bg-blue-50 transition-colors"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+        >
+          <Plus className="w-4 h-4" />
+        </motion.button>
+      </div>
+
+      <motion.button
+        onClick={() => onSelect(activity)}
+        className="w-full text-left"
+      >
+        <h3 className="text-lg font-semibold text-gray-900 mb-2">
+          {activity.name}
+        </h3>
+        <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+          {activity.description}
+        </p>
+        <div className="flex items-center gap-4 text-sm text-gray-500">
+          <span className="flex items-center gap-1">
+            <Clock className="w-4 h-4" />
+            {activity.duration} min
+          </span>
+          <span className="flex items-center gap-1">
+            <Users className="w-4 h-4" />
+            {activity.ageGroup}
           </span>
         </div>
-        <div className="space-y-4 flex-1">
-          <p className="text-gray-700 leading-relaxed">{activity.description}</p>
-          <div className="flex flex-wrap gap-2 items-center">
-            <span className={`age-badge ${getAgeGroupColor(activity.ageGroup)}`}>{activity.ageGroup}</span>
-            <span className="flex items-center gap-1 bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs font-medium">
-              <Clock size={18} />
-              {activity.duration} min
-            </span>
-          </div>
-          <div className="mt-2">
-            <h4 className="text-sm font-semibold text-gray-700 mb-1 flex items-center gap-1">
-              <ClipboardList size={18} className="text-gray-400" /> Materials Needed
-            </h4>
-            <ul className="space-y-1 text-sm text-gray-600">
-              {activity.materials.map((material, index) => (
-                <li key={index} className="flex items-start">
-                  <span className="inline-block w-1 h-1 bg-gray-400 rounded-full mt-2 mr-2 flex-shrink-0"></span>
-                  <span className="leading-relaxed">{material}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-        <div className="mt-6 flex justify-between items-center gap-2">
-          <button
-            onClick={() => onSelect(activity)}
-            className="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-200 underline"
-          >
-            View Details
-          </button>
-          <button
-            onClick={onAddToSession}
-            className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-5 py-2 rounded-lg font-semibold shadow hover:from-blue-600 hover:to-purple-600 transition-all duration-200"
-          >
-            + Add to Session
-          </button>
-        </div>
-      </div>
-    </div>
+      </motion.button>
+    </motion.div>
   )
-} 
+}
+
+export type { ActivityCardProps } 
