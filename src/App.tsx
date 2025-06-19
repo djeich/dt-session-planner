@@ -146,34 +146,41 @@ function App() {
 
         {sessionActivities.length > 0 && (
           <div className="mt-8">
-            <div className="bg-white rounded-lg shadow p-6 session-plan">
-              <div className="flex justify-between items-center mb-4">
-                <h3 className="text-lg font-semibold leading-tight">Your Session Plan</h3>
+            <div className="bg-gradient-to-r from-purple-100 to-blue-100 rounded-2xl shadow-lg p-8 session-plan border-2 border-blue-200">
+              <div className="flex justify-between items-center mb-6">
+                <h3 className="text-2xl font-bold text-blue-900 flex items-center gap-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17v-2a4 4 0 014-4h6m-6 0V7a4 4 0 00-4-4H5a4 4 0 00-4 4v10a4 4 0 004 4h6a4 4 0 004-4z" /></svg>
+                  Your Session Plan
+                </h3>
                 <button
                   onClick={() => setShowExport(true)}
-                  className="export-button px-4 py-2 rounded-md"
+                  className="export-button px-6 py-2 rounded-lg bg-gradient-to-r from-blue-500 to-purple-500 text-white font-semibold shadow hover:from-blue-600 hover:to-purple-600 transition-all duration-200"
                 >
                   Export Session
                 </button>
               </div>
               <div className="space-y-4">
                 {sessionActivities.map((activity, index) => (
-                  <div key={activity.id} className="session-activity p-4 bg-gray-50 rounded-md">
-                    <div className="flex justify-between items-start">
-                      <div>
-                        <h4 className="font-medium leading-tight">{activity.name}</h4>
-                        <p className="text-sm text-gray-600 leading-relaxed">{activity.duration} minutes</p>
+                  <div key={activity.id} className="session-activity p-4 bg-white rounded-xl border border-blue-100 flex justify-between items-center shadow-sm">
+                    <div>
+                      <h4 className="font-semibold text-lg text-gray-900 leading-tight">{activity.name}</h4>
+                      <div className="flex items-center gap-3 mt-1">
+                        <span className="flex items-center gap-1 text-blue-700 bg-blue-50 px-2 py-1 rounded-full text-xs font-medium">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3" /></svg>
+                          {activity.duration} min
+                        </span>
+                        <span className="text-xs text-gray-500">{activity.phase}</span>
                       </div>
-                      <button
-                        onClick={() => setSessionActivities(sessionActivities.filter((_, i) => i !== index))}
-                        className="text-gray-400 hover:text-red-500 transition-colors duration-200"
-                      >
-                        Remove
-                      </button>
                     </div>
+                    <button
+                      onClick={() => setSessionActivities(sessionActivities.filter((_, i) => i !== index))}
+                      className="ml-4 px-3 py-1 rounded bg-red-100 text-red-700 font-semibold hover:bg-red-200 transition-colors duration-200"
+                    >
+                      Remove
+                    </button>
                   </div>
                 ))}
-                <div className="text-right text-sm text-gray-600 leading-relaxed">
+                <div className="text-right text-lg text-blue-900 font-bold mt-4">
                   Total Duration: {totalDuration} minutes
                 </div>
               </div>

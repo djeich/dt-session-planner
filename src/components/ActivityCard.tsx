@@ -1,4 +1,5 @@
 import type { Activity } from '../data/activities'
+import { ClockIcon, ClipboardDocumentListIcon } from '@heroicons/react/24/outline'
 
 interface ActivityCardProps {
   activity: Activity
@@ -10,17 +11,17 @@ export function ActivityCard({ activity, onSelect, onAddToSession }: ActivityCar
   const getPhaseColor = (phase: string) => {
     switch (phase) {
       case 'Empathize':
-        return 'bg-amber-100 text-amber-800 border-amber-200'
+        return 'bg-amber-50 border-amber-200'
       case 'Define':
-        return 'bg-blue-100 text-blue-800 border-blue-200'
+        return 'bg-blue-50 border-blue-200'
       case 'Ideate':
-        return 'bg-purple-100 text-purple-800 border-purple-200'
+        return 'bg-purple-50 border-purple-200'
       case 'Prototype':
-        return 'bg-green-100 text-green-800 border-green-200'
+        return 'bg-green-50 border-green-200'
       case 'Test':
-        return 'bg-red-100 text-red-800 border-red-200'
+        return 'bg-red-50 border-red-200'
       default:
-        return 'bg-gray-100 text-gray-800 border-gray-200'
+        return 'bg-gray-50 border-gray-200'
     }
   }
 
@@ -38,29 +39,27 @@ export function ActivityCard({ activity, onSelect, onAddToSession }: ActivityCar
   }
 
   return (
-    <div className="activity-card bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all duration-300">
-      <div className="p-6">
+    <div className={`activity-card rounded-xl shadow-md overflow-hidden border-2 transition-all duration-300 hover:shadow-xl ${getPhaseColor(activity.phase)}`}>
+      <div className="p-6 flex flex-col h-full">
         <div className="flex justify-between items-start mb-4">
           <h3 className="text-xl font-semibold text-gray-900 leading-tight">{activity.name}</h3>
-          <span className={`phase-badge ${getPhaseColor(activity.phase)}`}>
+          <span className="phase-badge bg-white border px-3 py-1 text-xs font-bold uppercase tracking-wide shadow-sm">
             {activity.phase}
           </span>
         </div>
-        
-        <div className="space-y-4">
-          <p className="text-gray-600 leading-relaxed">{activity.description}</p>
-          
-          <div className="flex flex-wrap gap-2">
-            <span className={`age-badge ${getAgeGroupColor(activity.ageGroup)}`}>
-              {activity.ageGroup}
-            </span>
-            <span className="age-badge bg-blue-100 text-blue-800">
+        <div className="space-y-4 flex-1">
+          <p className="text-gray-700 leading-relaxed">{activity.description}</p>
+          <div className="flex flex-wrap gap-2 items-center">
+            <span className={`age-badge ${getAgeGroupColor(activity.ageGroup)}`}>{activity.ageGroup}</span>
+            <span className="flex items-center gap-1 bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs font-medium">
+              <ClockIcon className="w-4 h-4" />
               {activity.duration} min
             </span>
           </div>
-
-          <div className="mt-4">
-            <h4 className="text-sm font-semibold text-gray-700 mb-2">Materials Needed:</h4>
+          <div className="mt-2">
+            <h4 className="text-sm font-semibold text-gray-700 mb-1 flex items-center gap-1">
+              <ClipboardDocumentListIcon className="w-4 h-4 text-gray-400" /> Materials Needed
+            </h4>
             <ul className="space-y-1 text-sm text-gray-600">
               {activity.materials.map((material, index) => (
                 <li key={index} className="flex items-start">
@@ -70,21 +69,20 @@ export function ActivityCard({ activity, onSelect, onAddToSession }: ActivityCar
               ))}
             </ul>
           </div>
-
-          <div className="mt-4 flex justify-between items-center">
-            <button
-              onClick={() => onSelect(activity)}
-              className="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-200"
-            >
-              View Details
-            </button>
-            <button
-              onClick={onAddToSession}
-              className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors duration-200"
-            >
-              Add to Session
-            </button>
-          </div>
+        </div>
+        <div className="mt-6 flex justify-between items-center gap-2">
+          <button
+            onClick={() => onSelect(activity)}
+            className="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors duration-200 underline"
+          >
+            View Details
+          </button>
+          <button
+            onClick={onAddToSession}
+            className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-5 py-2 rounded-lg font-semibold shadow hover:from-blue-600 hover:to-purple-600 transition-all duration-200"
+          >
+            + Add to Session
+          </button>
         </div>
       </div>
     </div>
