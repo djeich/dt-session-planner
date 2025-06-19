@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { LightBulbIcon, AcademicCapIcon, SparklesIcon } from '@heroicons/react/24/solid'
 
 type Tab = 'overview' | 'examples' | 'case-studies'
 
@@ -189,9 +188,7 @@ export function EducationalContent() {
           {activeTab === 'overview' && (
             <div className="space-y-8">
               <div className="bg-white rounded-xl shadow p-6 flex flex-col md:flex-row items-center gap-6">
-                <div className="flex-shrink-0 flex items-center justify-center w-14 h-14 rounded-full bg-blue-100">
-                  <LightBulbIcon className="w-5 h-5 text-blue-500" />
-                </div>
+                <div className="flex-shrink-0 flex items-center justify-center w-14 h-14 rounded-full bg-blue-100" />
                 <div>
                   <h3 className="text-2xl font-bold text-gray-900 leading-tight mb-2">Design Thinking in Education</h3>
                   <p className="text-gray-600 leading-relaxed text-base mb-4">
@@ -200,25 +197,21 @@ export function EducationalContent() {
                   </p>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     {benefits.map((b, i) => (
-                      <div key={i} className="flex items-center bg-blue-50 rounded px-3 py-2 text-blue-900 font-medium shadow-sm">
-                        <SparklesIcon className="w-5 h-5 mr-2 text-blue-400" />
-                        <span>{b}</span>
+                      <div key={i} className="bg-blue-50 rounded px-3 py-2 text-blue-900 font-medium shadow-sm">
+                        {b}
                       </div>
                     ))}
                   </div>
                 </div>
               </div>
               <div className="bg-gradient-to-r from-green-50 to-green-100 rounded-xl shadow p-6 flex flex-col md:flex-row items-center gap-6">
-                <div className="flex-shrink-0 flex items-center justify-center w-14 h-14 rounded-full bg-green-100">
-                  <AcademicCapIcon className="w-5 h-5 text-green-500" />
-                </div>
+                <div className="flex-shrink-0 flex items-center justify-center w-14 h-14 rounded-full bg-green-100" />
                 <div>
                   <h4 className="font-semibold text-green-800 mb-2 text-lg">Tips for Teachers</h4>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     {teacherTips.map((tip, i) => (
-                      <div key={i} className="flex items-center bg-green-50 rounded px-3 py-2 text-green-900 font-medium shadow-sm">
-                        <SparklesIcon className="w-5 h-5 mr-2 text-green-400" />
-                        <span>{tip}</span>
+                      <div key={i} className="bg-green-50 rounded px-3 py-2 text-green-900 font-medium shadow-sm">
+                        {tip}
                       </div>
                     ))}
                   </div>
