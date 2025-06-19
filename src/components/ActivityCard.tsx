@@ -1,5 +1,5 @@
 import type { Activity } from '../data/activities'
-import { ClockIcon, ClipboardDocumentListIcon } from '@heroicons/react/24/outline'
+import { Clock, ClipboardList } from 'lucide-react'
 
 interface ActivityCardProps {
   activity: Activity
@@ -52,13 +52,13 @@ export function ActivityCard({ activity, onSelect, onAddToSession }: ActivityCar
           <div className="flex flex-wrap gap-2 items-center">
             <span className={`age-badge ${getAgeGroupColor(activity.ageGroup)}`}>{activity.ageGroup}</span>
             <span className="flex items-center gap-1 bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs font-medium">
-              <ClockIcon className="w-4 h-4" />
+              <Clock size={18} />
               {activity.duration} min
             </span>
           </div>
           <div className="mt-2">
             <h4 className="text-sm font-semibold text-gray-700 mb-1 flex items-center gap-1">
-              <ClipboardDocumentListIcon className="w-4 h-4 text-gray-400" /> Materials Needed
+              <ClipboardList size={18} className="text-gray-400" /> Materials Needed
             </h4>
             <ul className="space-y-1 text-sm text-gray-600">
               {activity.materials.map((material, index) => (

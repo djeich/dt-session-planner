@@ -1,5 +1,6 @@
 import type { Activity } from '../data/activities'
-import { ClipboardDocumentListIcon, LightBulbIcon, CheckCircleIcon, XMarkIcon, ClockIcon } from '@heroicons/react/24/outline'
+import { ClipboardList, Clock } from 'lucide-react'
+import { CheckCircleIcon, XMarkIcon } from '@heroicons/react/24/outline'
 
 interface ActivityDetailProps {
   activity: Activity;
@@ -13,7 +14,6 @@ export const ActivityDetail = ({ activity, onClose, onAddToSession }: ActivityDe
       <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border-2 border-blue-100">
         <div className="bg-gradient-to-r from-blue-500 to-purple-500 rounded-t-2xl px-6 py-5 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <LightBulbIcon className="w-6 h-6 text-white" />
             <h2 className="text-2xl font-bold text-white drop-shadow">{activity.name}</h2>
           </div>
           <button
@@ -25,14 +25,20 @@ export const ActivityDetail = ({ activity, onClose, onAddToSession }: ActivityDe
           </button>
         </div>
         <div className="p-6 space-y-6">
-          <div className="bg-blue-50 rounded-xl p-4 flex items-center gap-3">
-            <ClockIcon className="w-4 h-4 text-blue-400" />
-            <span className="text-blue-900 font-semibold text-lg">Duration: {activity.duration} minutes</span>
+          <div className="grid grid-cols-2 gap-6 mb-6">
+            <div>
+              <h3 className="font-semibold mb-2 flex items-center gap-1"><Clock size={18} /> Duration</h3>
+              <p className="text-gray-600">{activity.duration} minutes</p>
+            </div>
+            <div>
+              <h3 className="font-semibold mb-2 flex items-center gap-1"><ClipboardList size={18} /> Age Group</h3>
+              <p className="text-gray-600">{activity.ageGroup}</p>
+            </div>
           </div>
           <div className="grid md:grid-cols-2 gap-6">
             <div className="bg-white rounded-xl border border-blue-100 p-4 shadow-sm">
               <h3 className="text-lg font-semibold text-blue-700 mb-2 flex items-center gap-2">
-                <ClipboardDocumentListIcon className="w-4 h-4 text-blue-400" /> Materials Needed
+                <ClipboardList size={18} /> Materials Needed
               </h3>
               <ul className="space-y-1 text-gray-700">
                 {activity.materials.map((material, index) => (
@@ -45,7 +51,7 @@ export const ActivityDetail = ({ activity, onClose, onAddToSession }: ActivityDe
             </div>
             <div className="bg-white rounded-xl border border-purple-100 p-4 shadow-sm">
               <h3 className="text-lg font-semibold text-purple-700 mb-2 flex items-center gap-2">
-                <LightBulbIcon className="w-4 h-4 text-purple-400" /> Instructions
+                <Clock size={18} /> Instructions
               </h3>
               <ol className="space-y-1 text-gray-700">
                 {activity.instructions.map((instruction, index) => (
