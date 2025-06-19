@@ -1,5 +1,5 @@
 #root {
-  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8;
+  @apply min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50;
 }
 
 .logo {
@@ -38,10 +38,68 @@
   color: #888;
 }
 
+.shadow-soft {
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+}
+
+.shadow-xl {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Navigation tabs */
+.nav-tab {
+  @apply relative px-4 py-2 text-gray-600 hover:text-blue-600 transition-colors;
+}
+
+.nav-tab.active {
+  @apply text-blue-600 font-medium;
+}
+
+.nav-tab.active::after {
+  content: '';
+  @apply absolute bottom-0 left-0 w-full h-0.5 bg-blue-600 rounded-full;
+}
+
+/* Cards and containers */
+.content-card {
+  @apply bg-white rounded-2xl shadow-xl p-8 transition-all duration-300
+         hover:shadow-2xl hover:-translate-y-1;
+}
+
+.gradient-border {
+  position: relative;
+  border-radius: 1rem;
+  background: linear-gradient(to right, #3b82f6, #8b5cf6);
+  padding: 1px;
+}
+
+.gradient-border > * {
+  background: white;
+  border-radius: 1rem;
+}
+
+/* Animations */
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.float-animation {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Design process section */
 .design-process {
-  @apply my-8 relative p-6 bg-gradient-to-r from-blue-50 to-blue-100 
-         rounded-2xl shadow-lg border border-blue-200;
-  min-height: 200px;
+  @apply my-12 relative p-8 bg-gradient-to-r from-blue-50 to-purple-50 
+         rounded-2xl shadow-xl border border-blue-100;
+  min-height: 250px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -49,59 +107,60 @@
 
 .process-line {
   @apply absolute top-1/2 left-0 right-0 h-1 
-         bg-gradient-to-r from-blue-500 via-blue-400 to-blue-300 
+         bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 
          transform -translate-y-1/2 z-0;
   margin: 0 2rem;
 }
 
 .phase-button {
   @apply relative z-10 transition-all duration-300 font-semibold uppercase tracking-wide
-         shadow-sm hover:-translate-y-1 hover:shadow-md;
+         shadow-lg hover:-translate-y-2 hover:shadow-xl;
   margin: 0 auto;
+  backdrop-filter: blur(8px);
 }
 
 .phase-button.active {
-  @apply transform scale-105 shadow-lg ring-2 ring-offset-2;
+  @apply transform scale-105 shadow-xl ring-2 ring-offset-2;
 }
 
-/* Phase-specific colors */
+/* Phase-specific colors with gradients */
 .phase-button.empathize {
-  @apply bg-amber-50 border-2 border-amber-500 text-amber-800 
-         hover:bg-amber-100 ring-amber-500;
+  @apply bg-gradient-to-br from-amber-100 to-amber-50 border-2 border-amber-300 
+         text-amber-900 hover:from-amber-200 hover:to-amber-100 ring-amber-400;
 }
 
 .phase-button.define {
-  @apply bg-blue-50 border-2 border-blue-500 text-blue-800 
-         hover:bg-blue-100 ring-blue-500;
+  @apply bg-gradient-to-br from-blue-100 to-blue-50 border-2 border-blue-300 
+         text-blue-900 hover:from-blue-200 hover:to-blue-100 ring-blue-400;
 }
 
 .phase-button.ideate {
-  @apply bg-purple-50 border-2 border-purple-500 text-purple-800 
-         hover:bg-purple-100 ring-purple-500;
+  @apply bg-gradient-to-br from-purple-100 to-purple-50 border-2 border-purple-300 
+         text-purple-900 hover:from-purple-200 hover:to-purple-100 ring-purple-400;
 }
 
 .phase-button.prototype {
-  @apply bg-green-50 border-2 border-green-500 text-green-800 
-         hover:bg-green-100 ring-green-500;
+  @apply bg-gradient-to-br from-green-100 to-green-50 border-2 border-green-300 
+         text-green-900 hover:from-green-200 hover:to-green-100 ring-green-400;
 }
 
 .phase-button.test {
-  @apply bg-red-50 border-2 border-red-500 text-red-800 
-         hover:bg-red-100 ring-red-500;
+  @apply bg-gradient-to-br from-red-100 to-red-50 border-2 border-red-300 
+         text-red-900 hover:from-red-200 hover:to-red-100 ring-red-400;
 }
 
 /* Diverging/Converging indicators */
 .diverging, .converging {
-  @apply font-semibold px-4 py-2 rounded-full bg-opacity-80 backdrop-blur-sm
-         shadow-sm transition-all duration-300;
+  @apply font-semibold px-6 py-3 rounded-full bg-opacity-90 backdrop-blur-sm
+         shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl;
 }
 
 .diverging {
-  @apply text-blue-800 bg-blue-50;
+  @apply text-blue-900 bg-gradient-to-r from-blue-100 to-blue-50 border border-blue-200;
 }
 
 .converging {
-  @apply text-purple-800 bg-purple-50;
+  @apply text-purple-900 bg-gradient-to-r from-purple-100 to-purple-50 border border-purple-200;
 }
 
 /* Export button styling */
@@ -168,18 +227,24 @@
 
 /* Tooltip styles */
 .tooltip {
-  position: relative;
-  display: inline-block;
+  @apply relative inline-block;
 }
 
 .tooltip .tooltip-text {
-  @apply invisible w-48 bg-gray-900 text-white text-center rounded-lg py-2 px-3
-         absolute z-50 bottom-full left-1/2 transform -translate-x-1/2
-         opacity-0 transition-opacity duration-300;
+  @apply invisible absolute z-50 w-48 text-center rounded-lg py-2 px-3
+         bg-gray-900 text-white text-sm
+         bottom-full left-1/2 transform -translate-x-1/2 mb-2
+         opacity-0 transition-all duration-300;
 }
 
 .tooltip:hover .tooltip-text {
   @apply visible opacity-100;
+}
+
+.tooltip .tooltip-text::after {
+  content: "";
+  @apply absolute top-full left-1/2 transform -translate-x-1/2
+         border-4 border-transparent border-t-gray-900;
 }
 
 /* Print styles */

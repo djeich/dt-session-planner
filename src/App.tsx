@@ -17,17 +17,21 @@ import {
   Clock,
   X,
   FileDown,
-  BookOpen
+  BookOpen,
+  CheckCircle,
+  ArrowRight
 } from 'lucide-react'
 import './App.css'
 
 type Phase = 'Empathize' | 'Define' | 'Ideate' | 'Prototype' | 'Test'
+type Tab = 'overview' | 'examples' | 'cases'
 
 function App() {
   const [selectedPhase, setSelectedPhase] = useState<Phase | null>(null)
   const [selectedActivity, setSelectedActivity] = useState<Activity | null>(null)
   const [sessionActivities, setSessionActivities] = useState<Activity[]>([])
   const [showExport, setShowExport] = useState(false)
+  const [activeTab, setActiveTab] = useState<Tab>('overview')
   const [filters, setFilters] = useState({
     phase: 'All Phases',
     ageGroup: 'All Ages'
@@ -78,18 +82,18 @@ function App() {
       <motion.header 
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="py-10"
+        className="py-10 bg-gradient-to-br from-blue-900 via-blue-800 to-purple-900"
       >
         <div className="max-w-4xl mx-auto px-4">
           <motion.div 
-            className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl shadow-lg p-8 flex flex-col items-center mb-6"
+            className="text-center"
             whileHover={{ scale: 1.01 }}
             transition={{ type: "spring", stiffness: 300 }}
           >
-            <h1 className="text-4xl md:text-5xl font-extrabold text-white drop-shadow-lg mb-2 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-100 to-purple-100">
+            <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-4 tracking-tight">
               Design Thinking Session Planner
             </h1>
-            <p className="mt-2 text-blue-100 text-lg text-center font-medium">
+            <p className="text-xl text-blue-100 max-w-2xl mx-auto">
               Plan engaging design thinking activities for your classroom
             </p>
           </motion.div>
@@ -100,18 +104,104 @@ function App() {
         <EducationalContent />
 
         <motion.div 
-          className="bg-white rounded-xl shadow-soft p-6 mb-8 border border-gray-100"
+          className="bg-white rounded-2xl shadow-xl p-8 mb-12"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
         >
-          <div className="flex items-center gap-2 mb-3">
-            <BookOpen className="w-5 h-5 text-blue-600" />
-            <h4 className="text-lg font-semibold text-gray-900">What is Design Thinking?</h4>
+          <h2 className="text-3xl font-bold text-gray-900 mb-6">Design Thinking in Education</h2>
+          <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+            Design Thinking is a powerful approach to problem-solving that helps students develop empathy, creativity, and critical thinking skills.
+          </p>
+          
+          <div className="grid md:grid-cols-2 gap-8 mb-8">
+            <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6">
+              <h3 className="text-xl font-semibold text-blue-900 mb-4">Benefits</h3>
+              <ul className="space-y-3">
+                <li className="flex items-start">
+                  <svg className="w-5 h-5 text-blue-500 mt-1 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700">Encourages student-centered learning</span>
+                </li>
+                <li className="flex items-start">
+                  <svg className="w-5 h-5 text-blue-500 mt-1 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700">Promotes collaboration and teamwork</span>
+                </li>
+                <li className="flex items-start">
+                  <svg className="w-5 h-5 text-blue-500 mt-1 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700">Develops real-world problem-solving skills</span>
+                </li>
+                <li className="flex items-start">
+                  <svg className="w-5 h-5 text-blue-500 mt-1 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700">Builds confidence through hands-on experience</span>
+                </li>
+                <li className="flex items-start">
+                  <svg className="w-5 h-5 text-blue-500 mt-1 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-gray-700">Fosters innovation and creativity</span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-6">
+              <h3 className="text-xl font-semibold text-purple-900 mb-4">Tips for Teachers</h3>
+              <ul className="space-y-3">
+                <li className="flex items-start">
+                  <svg className="w-5 h-5 text-purple-500 mt-1 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                  <span className="text-gray-700">Start with simple, relatable problems</span>
+                </li>
+                <li className="flex items-start">
+                  <svg className="w-5 h-5 text-purple-500 mt-1 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                  <span className="text-gray-700">Encourage wild ideas during ideation</span>
+                </li>
+                <li className="flex items-start">
+                  <svg className="w-5 h-5 text-purple-500 mt-1 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                  <span className="text-gray-700">Use physical materials for prototyping</span>
+                </li>
+                <li className="flex items-start">
+                  <svg className="w-5 h-5 text-purple-500 mt-1 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                  <span className="text-gray-700">Celebrate failures as learning opportunities</span>
+                </li>
+                <li className="flex items-start">
+                  <svg className="w-5 h-5 text-purple-500 mt-1 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                  <span className="text-gray-700">Connect projects to real-world contexts</span>
+                </li>
+              </ul>
+            </div>
           </div>
-          <p className="text-gray-600 leading-relaxed">
+        </motion.div>
+
+        <motion.div 
+          className="bg-white rounded-2xl shadow-xl p-8 mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+        >
+          <div className="flex items-center gap-2 mb-6">
+            <BookOpen className="w-6 h-6 text-blue-600" />
+            <h2 className="text-2xl font-bold text-gray-900">What is Design Thinking?</h2>
+          </div>
+          <p className="text-lg text-gray-600 leading-relaxed max-w-4xl">
             Design Thinking is a human-centered approach to problem-solving that encourages creativity and innovation. 
-            It's a process that helps students develop empathy, think critically, and create solutions that meet real user needs.
+            It helps students develop solutions that meet real user needs through a structured, iterative process.
           </p>
         </motion.div>
 
