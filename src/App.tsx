@@ -8,12 +8,12 @@ import { SessionExport } from './components/SessionExport'
 import { GuidedTour } from './components/GuidedTour'
 import { EducationalContent } from './components/EducationalContent'
 import {
-  HeartIcon,
-  LightBulbIcon,
-  BeakerIcon,
-  WrenchScrewdriverIcon,
-  ChartBarIcon,
-} from '@heroicons/react/24/outline'
+  Heart,
+  BarChart3,
+  Lightbulb,
+  Wrench,
+  TestTube,
+} from 'lucide-react'
 import './App.css'
 
 type Phase = 'Empathize' | 'Define' | 'Ideate' | 'Prototype' | 'Test'
@@ -31,11 +31,11 @@ function App() {
   const phases: Phase[] = ['Empathize', 'Define', 'Ideate', 'Prototype', 'Test']
 
   const phaseIcons = {
-    Empathize: HeartIcon,
-    Define: ChartBarIcon,
-    Ideate: LightBulbIcon,
-    Prototype: WrenchScrewdriverIcon,
-    Test: BeakerIcon,
+    Empathize: Heart,
+    Define: BarChart3,
+    Ideate: Lightbulb,
+    Prototype: Wrench,
+    Test: TestTube,
   }
 
   const phaseColors = {
@@ -104,7 +104,7 @@ function App() {
                     } overflow-hidden`}
                     style={{ minWidth: '8rem', minHeight: '8rem', maxWidth: '8rem', maxHeight: '8rem' }}
                   >
-                    <Icon className="w-8 h-8 object-contain shrink-0 mb-2" style={{ maxWidth: '2rem', maxHeight: '2rem' }} />
+                    <Icon className="mb-2" size={24} />
                     <span className="text-base font-bold tracking-wide mt-1">{phase.toUpperCase()}</span>
                   </button>
                   <span className="tooltip-text">{phaseDescriptions[phase]}</span>
