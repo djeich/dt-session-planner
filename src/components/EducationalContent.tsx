@@ -189,8 +189,8 @@ export function EducationalContent() {
           {activeTab === 'overview' && (
             <div className="space-y-8">
               <div className="bg-white rounded-xl shadow p-6 flex flex-col md:flex-row items-center gap-6">
-                <div className="flex-shrink-0 flex items-center justify-center w-20 h-20 rounded-full bg-blue-100">
-                  <LightBulbIcon className="w-12 h-12 text-blue-500" />
+                <div className="flex-shrink-0 flex items-center justify-center w-14 h-14 rounded-full bg-blue-100">
+                  <LightBulbIcon className="w-5 h-5 text-blue-500" />
                 </div>
                 <div>
                   <h3 className="text-2xl font-bold text-gray-900 leading-tight mb-2">Design Thinking in Education</h3>
@@ -209,8 +209,8 @@ export function EducationalContent() {
                 </div>
               </div>
               <div className="bg-gradient-to-r from-green-50 to-green-100 rounded-xl shadow p-6 flex flex-col md:flex-row items-center gap-6">
-                <div className="flex-shrink-0 flex items-center justify-center w-20 h-20 rounded-full bg-green-100">
-                  <AcademicCapIcon className="w-12 h-12 text-green-500" />
+                <div className="flex-shrink-0 flex items-center justify-center w-14 h-14 rounded-full bg-green-100">
+                  <AcademicCapIcon className="w-5 h-5 text-green-500" />
                 </div>
                 <div>
                   <h4 className="font-semibold text-green-800 mb-2 text-lg">Tips for Teachers</h4>
