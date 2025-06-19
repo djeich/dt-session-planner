@@ -38,6 +38,14 @@ function App() {
     Test: BeakerIcon,
   }
 
+  const phaseColors = {
+    Empathize: 'from-amber-200 to-amber-100 border-amber-300',
+    Define: 'from-blue-200 to-blue-100 border-blue-300',
+    Ideate: 'from-purple-200 to-purple-100 border-purple-300',
+    Prototype: 'from-green-200 to-green-100 border-green-300',
+    Test: 'from-red-200 to-red-100 border-red-300',
+  }
+
   const phaseDescriptions: Record<Phase, string> = {
     Empathize: 'Understand your users and their needs through observation and interviews',
     Define: 'Analyze observations and define the core problems to solve',
@@ -59,13 +67,15 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50">
       <GuidedTour />
       
-      <header className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 py-6">
-          <h1 className="text-3xl font-bold text-gray-900 leading-tight">Design Thinking Session Planner</h1>
-          <p className="mt-2 text-gray-600 leading-relaxed">Plan engaging design thinking activities for your classroom</p>
+      <header className="py-10">
+        <div className="max-w-3xl mx-auto px-4">
+          <div className="bg-gradient-to-r from-blue-600 to-purple-500 rounded-2xl shadow-lg p-8 flex flex-col items-center mb-6">
+            <h1 className="text-4xl md:text-5xl font-extrabold text-white drop-shadow mb-2 text-center">Design Thinking Session Planner</h1>
+            <p className="mt-2 text-blue-100 text-lg text-center font-medium">Plan engaging design thinking activities for your classroom</p>
+          </div>
         </div>
       </header>
 
@@ -80,23 +90,21 @@ function App() {
           </p>
         </div>
 
-        <div className="design-process">
+        <div className="design-process mb-10">
           <div className="process-line"></div>
-          <div className="flex justify-between items-center relative z-10">
+          <div className="flex flex-wrap justify-between items-center relative z-10 gap-4 md:gap-0">
             {phases.map((phase) => {
               const Icon = phaseIcons[phase]
               return (
-                <div key={phase} className="tooltip">
+                <div key={phase} className="tooltip flex-1 min-w-[120px] flex justify-center">
                   <button
                     onClick={() => setSelectedPhase(phase)}
-                    className={`phase-button ${phase.toLowerCase()} px-4 py-2 rounded-full ${
-                      selectedPhase === phase ? 'active' : ''
+                    className={`phase-button px-6 py-3 rounded-xl font-semibold text-lg flex flex-col items-center border-2 shadow transition-all duration-200 bg-gradient-to-br ${phaseColors[phase]} ${
+                      selectedPhase === phase ? 'scale-105 ring-4 ring-blue-300' : 'hover:scale-105 hover:ring-2 hover:ring-blue-200'
                     }`}
                   >
-                    <div className="flex items-center gap-2">
-                      <Icon className="w-5 h-5" />
-                      <span>{phase}</span>
-                    </div>
+                    <Icon className="w-7 h-7 mb-1" />
+                    <span>{phase}</span>
                   </button>
                   <span className="tooltip-text">{phaseDescriptions[phase]}</span>
                 </div>
