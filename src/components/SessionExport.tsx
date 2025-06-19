@@ -18,7 +18,7 @@ export const SessionExport = ({ activities, onClose }: SessionExportProps) => {
       <div className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border-2 border-blue-100">
         <div className="bg-gradient-to-r from-blue-500 to-purple-500 rounded-t-2xl px-6 py-5 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <ArrowDownTrayIcon className="w-8 h-8 text-white" />
+            <ArrowDownTrayIcon className="w-6 h-6 text-white" />
             <h2 className="text-2xl font-bold text-white drop-shadow">Session Plan Export</h2>
           </div>
           <button
@@ -26,20 +26,20 @@ export const SessionExport = ({ activities, onClose }: SessionExportProps) => {
             className="text-white hover:text-blue-100 transition-colors duration-200"
             aria-label="Close"
           >
-            <XMarkIcon className="w-7 h-7" />
+            <XMarkIcon className="w-6 h-6" />
           </button>
         </div>
         <div className="p-6 space-y-8">
           <div className="bg-blue-50 rounded-xl p-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div className="flex items-center gap-3">
-              <ClockIcon className="w-6 h-6 text-blue-400" />
+              <ClockIcon className="w-4 h-4 text-blue-400" />
               <span className="text-blue-900 font-semibold text-lg">Total Duration: {totalDuration} minutes</span>
             </div>
             <span className="text-blue-700 font-medium">Number of Activities: {activities.length}</span>
           </div>
           <div>
             <h3 className="text-xl font-bold text-blue-900 mb-4 flex items-center gap-2">
-              <ClipboardDocumentListIcon className="w-6 h-6 text-blue-400" /> Activities
+              <ClipboardDocumentListIcon className="w-4 h-4 text-blue-400" /> Activities
             </h3>
             <div className="space-y-4">
               {activities.map((activity, index) => (
@@ -61,7 +61,7 @@ export const SessionExport = ({ activities, onClose }: SessionExportProps) => {
                     <ul className="space-y-1 text-sm text-gray-600">
                       {activity.materials.map((material, i) => (
                         <li key={i} className="flex items-start">
-                          <span className="inline-block w-1 h-1 bg-gray-400 rounded-full mt-2 mr-2 flex-shrink-0"></span>
+                          <span className="inline-block w-3 h-3 bg-gray-400 rounded-full mt-1.5 mr-2 flex-shrink-0"></span>
                           <span className="leading-relaxed">{material}</span>
                         </li>
                       ))}
