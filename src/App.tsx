@@ -73,7 +73,7 @@ function App() {
       >
         <div className="container">
           <motion.div 
-            className="text-center max-w-4xl mx-auto"
+            className="text-content"
             initial={{ y: -20 }}
             animate={{ y: 0 }}
             transition={{ delay: 0.2, duration: 0.5 }}
@@ -91,22 +91,24 @@ function App() {
       <main className="container py-12">
         {/* Overview Section */}
         <motion.section 
-          className="mb-16"
+          className="section mb-16 w-full"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
         >
-          <div className="grid md:grid-cols-3 gap-8 mb-12">
+          <div className="card-grid">
             <motion.div 
               className="card"
               whileHover={{ y: -5 }}
               transition={{ duration: 0.2 }}
             >
-              <GraduationCap className="w-8 h-8 text-blue-500 mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Student-Centered</h3>
-              <p className="text-gray-600">
-                Engage students in hands-on, creative problem-solving experiences
-              </p>
+              <div className="flex flex-col items-center text-center">
+                <GraduationCap className="w-8 h-8 text-blue-500 mb-4" />
+                <h3 className="text-xl font-semibold mb-2">Student-Centered</h3>
+                <p className="text-gray-600">
+                  Engage students in hands-on, creative problem-solving experiences
+                </p>
+              </div>
             </motion.div>
 
             <motion.div 
@@ -114,11 +116,13 @@ function App() {
               whileHover={{ y: -5 }}
               transition={{ duration: 0.2 }}
             >
-              <Users className="w-8 h-8 text-purple-500 mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Collaborative</h3>
-              <p className="text-gray-600">
-                Foster teamwork and communication through group activities
-              </p>
+              <div className="flex flex-col items-center text-center">
+                <Users className="w-8 h-8 text-purple-500 mb-4" />
+                <h3 className="text-xl font-semibold mb-2">Collaborative</h3>
+                <p className="text-gray-600">
+                  Foster teamwork and communication through group activities
+                </p>
+              </div>
             </motion.div>
 
             <motion.div 
@@ -126,25 +130,27 @@ function App() {
               whileHover={{ y: -5 }}
               transition={{ duration: 0.2 }}
             >
-              <Target className="w-8 h-8 text-amber-500 mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Goal-Oriented</h3>
-              <p className="text-gray-600">
-                Guide students through a structured creative process
-              </p>
+              <div className="flex flex-col items-center text-center">
+                <Target className="w-8 h-8 text-amber-500 mb-4" />
+                <h3 className="text-xl font-semibold mb-2">Goal-Oriented</h3>
+                <p className="text-gray-600">
+                  Guide students through a structured creative process
+                </p>
+              </div>
             </motion.div>
           </div>
         </motion.section>
 
         {/* Design Process Section */}
-        <section className="mb-16">
+        <section className="section mb-16 w-full">
           <motion.div 
-            className="design-process"
+            className="design-process w-full"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
           >
             <div className="process-line" />
-            <div className="flex flex-wrap md:flex-nowrap justify-between items-center relative z-10 gap-4">
+            <div className="flex flex-wrap md:flex-nowrap justify-center items-center relative z-10 gap-8">
               {phases.map((phase, index) => {
                 const Icon = phaseIcons[phase]
                 return (
@@ -163,6 +169,9 @@ function App() {
                       whileHover={{ y: -8 }}
                       whileTap={{ scale: 0.95 }}
                     >
+                      <div className="phase-tooltip">
+                        {phaseDescriptions[phase]}
+                      </div>
                       <Icon className="w-6 h-6 mb-2" />
                       <span className="text-sm font-bold tracking-wide">
                         {phase.toUpperCase()}
@@ -172,7 +181,7 @@ function App() {
                 )
               })}
             </div>
-            <div className="flex justify-between mt-8">
+            <div className="flex justify-center gap-4 mt-8">
               <motion.span 
                 className="px-4 py-2 rounded-full bg-blue-50 text-blue-700 font-medium text-sm"
                 whileHover={{ y: -2 }}
@@ -193,13 +202,14 @@ function App() {
         <AnimatePresence mode="wait">
           {selectedPhase && (
             <motion.section
+              className="section w-full"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
             >
-              <div className="card mb-8">
-                <div className="flex items-center gap-3 mb-4">
+              <div className="card w-full">
+                <div className="flex items-center justify-center gap-3 mb-4">
                   {phaseIcons[selectedPhase] && (
                     <div className={`p-2 rounded-lg bg-${selectedPhase.toLowerCase()}-50`}>
                       {React.createElement(phaseIcons[selectedPhase], {
@@ -207,15 +217,15 @@ function App() {
                       })}
                     </div>
                   )}
-                  <div>
+                  <div className="text-center">
                     <h2 className="text-2xl font-bold text-gray-900">{selectedPhase} Phase</h2>
-                    <p className="text-gray-600 mt-1">{phaseDescriptions[selectedPhase]}</p>
+                    <p className="text-gray-600 mt-1 max-w-2xl">{phaseDescriptions[selectedPhase]}</p>
                   </div>
                 </div>
                 
                 <FilterBar onFilterChange={filters => setFilters(filters)} />
                 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+                <div className="card-grid mt-6">
                   {filteredActivities.map((activity, index) => (
                     <motion.div
                       key={activity.id}
