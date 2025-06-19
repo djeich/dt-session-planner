@@ -101,10 +101,10 @@ function App() {
                     onClick={() => setSelectedPhase(phase)}
                     className={`phase-button w-32 h-32 flex flex-col items-center justify-center px-0 py-0 rounded-xl font-semibold text-lg border-2 shadow transition-all duration-200 bg-gradient-to-br ${phaseColors[phase]} ${
                       selectedPhase === phase ? 'scale-105 ring-4 ring-blue-300' : 'hover:scale-105 hover:ring-2 hover:ring-blue-200'
-                    }`}
+                    } overflow-hidden`}
                     style={{ minWidth: '8rem', minHeight: '8rem', maxWidth: '8rem', maxHeight: '8rem' }}
                   >
-                    <Icon className="w-12 h-12 mb-2" />
+                    <Icon className="w-8 h-8 object-contain shrink-0 mb-2" style={{ maxWidth: '2rem', maxHeight: '2rem' }} />
                     <span className="text-base font-bold tracking-wide mt-1">{phase.toUpperCase()}</span>
                   </button>
                   <span className="tooltip-text">{phaseDescriptions[phase]}</span>
