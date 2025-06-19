@@ -144,56 +144,48 @@ function App() {
         {/* Design Process Section */}
         <section className="section mb-16 w-full">
           <motion.div 
-            className="design-process w-full"
+            className="design-process"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
           >
             <div className="process-line" />
-            <div className="flex flex-wrap md:flex-nowrap justify-center items-center relative z-10 gap-8">
+            <div className="flex flex-wrap md:flex-nowrap justify-between items-start relative z-10 gap-12">
               {phases.map((phase, index) => {
                 const Icon = phaseIcons[phase]
                 return (
                   <motion.div 
                     key={phase}
-                    className="flex-1 min-w-[120px] flex justify-center"
+                    className="flex-1 flex justify-center"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.1 * index }}
                   >
                     <motion.button
                       onClick={() => setSelectedPhase(phase)}
-                      className={`phase-button ${phase.toLowerCase()} ${
-                        selectedPhase === phase ? 'active' : ''
-                      }`}
-                      whileHover={{ y: -8 }}
+                      className={`phase-button ${phase.toLowerCase()}`}
+                      whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                     >
                       <div className="phase-tooltip">
                         {phaseDescriptions[phase]}
                       </div>
-                      <Icon className="w-6 h-6 mb-2" />
-                      <span className="text-sm font-bold tracking-wide">
-                        {phase.toUpperCase()}
+                      <Icon className="icon" />
+                      <span className="label">
+                        {phase}
                       </span>
                     </motion.button>
                   </motion.div>
                 )
               })}
             </div>
-            <div className="flex justify-center gap-4 mt-8">
-              <motion.span 
-                className="px-4 py-2 rounded-full bg-blue-50 text-blue-700 font-medium text-sm"
-                whileHover={{ y: -2 }}
-              >
+            <div className="process-labels">
+              <span className="process-label diverging">
                 Diverging (Explore & Generate)
-              </motion.span>
-              <motion.span 
-                className="px-4 py-2 rounded-full bg-purple-50 text-purple-700 font-medium text-sm"
-                whileHover={{ y: -2 }}
-              >
+              </span>
+              <span className="process-label converging">
                 Converging (Refine & Focus)
-              </motion.span>
+              </span>
             </div>
           </motion.div>
         </section>
