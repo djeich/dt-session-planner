@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { LightBulbIcon, AcademicCapIcon, SparklesIcon } from '@heroicons/react/24/solid'
 
 type Tab = 'overview' | 'examples' | 'case-studies'
 
@@ -123,38 +124,54 @@ const visualExamples = {
   ]
 }
 
+const teacherTips = [
+  'Start with simple, relatable problems',
+  'Encourage wild ideas during ideation',
+  'Use physical materials for prototyping',
+  'Celebrate failures as learning opportunities',
+  'Connect projects to real-world contexts',
+]
+
+const benefits = [
+  'Encourages student-centered learning',
+  'Promotes collaboration and teamwork',
+  'Develops real-world problem-solving skills',
+  'Builds confidence through hands-on experience',
+  'Fosters innovation and creativity',
+]
+
 export function EducationalContent() {
   const [activeTab, setActiveTab] = useState<Tab>('overview')
 
   return (
-    <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
-      <div className="flex space-x-4 mb-6">
+    <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl shadow-lg p-8 mb-10">
+      <div className="flex flex-col md:flex-row md:space-x-4 mb-8 justify-center items-center">
         <button
           onClick={() => setActiveTab('overview')}
-          className={`px-4 py-2 rounded-md transition-colors duration-200 ${
+          className={`flex-1 min-w-[140px] px-6 py-3 rounded-lg font-semibold text-lg transition-all duration-200 shadow-sm border-2 ${
             activeTab === 'overview'
-              ? 'bg-blue-600 text-white'
-              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              ? 'bg-blue-600 text-white border-blue-600 scale-105'
+              : 'bg-white text-blue-700 border-blue-200 hover:bg-blue-100'
           }`}
         >
           Overview
         </button>
         <button
           onClick={() => setActiveTab('examples')}
-          className={`px-4 py-2 rounded-md transition-colors duration-200 ${
+          className={`flex-1 min-w-[140px] px-6 py-3 rounded-lg font-semibold text-lg transition-all duration-200 shadow-sm border-2 ${
             activeTab === 'examples'
-              ? 'bg-blue-600 text-white'
-              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              ? 'bg-purple-600 text-white border-purple-600 scale-105'
+              : 'bg-white text-purple-700 border-purple-200 hover:bg-purple-100'
           }`}
         >
           Visual Examples
         </button>
         <button
           onClick={() => setActiveTab('case-studies')}
-          className={`px-4 py-2 rounded-md transition-colors duration-200 ${
+          className={`flex-1 min-w-[140px] px-6 py-3 rounded-lg font-semibold text-lg transition-all duration-200 shadow-sm border-2 ${
             activeTab === 'case-studies'
-              ? 'bg-blue-600 text-white'
-              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              ? 'bg-green-600 text-white border-green-600 scale-105'
+              : 'bg-white text-green-700 border-green-200 hover:bg-green-100'
           }`}
         >
           Case Studies
@@ -170,28 +187,42 @@ export function EducationalContent() {
           transition={{ duration: 0.2 }}
         >
           {activeTab === 'overview' && (
-            <div className="space-y-6">
-              <h3 className="text-2xl font-bold text-gray-900 leading-tight">Design Thinking in Education</h3>
-              <p className="text-gray-600 leading-relaxed text-base">
-                Design Thinking is a powerful approach to problem-solving that helps students develop essential skills
-                like empathy, critical thinking, and creativity. It's particularly effective in education because it:
-              </p>
-              <ul className="list-disc pl-6 text-gray-600 space-y-1">
-                <li>Encourages student-centered learning</li>
-                <li>Promotes collaboration and teamwork</li>
-                <li>Develops real-world problem-solving skills</li>
-                <li>Builds confidence through hands-on experience</li>
-                <li>Fosters innovation and creativity</li>
-              </ul>
-              <div className="bg-blue-50 p-6 rounded-lg border border-blue-100">
-                <h4 className="font-semibold text-blue-800 mb-3 text-lg">Tips for Teachers</h4>
-                <ul className="list-disc pl-6 text-blue-700 space-y-1">
-                  <li>Start with simple, relatable problems</li>
-                  <li>Encourage wild ideas during ideation</li>
-                  <li>Use physical materials for prototyping</li>
-                  <li>Celebrate failures as learning opportunities</li>
-                  <li>Connect projects to real-world contexts</li>
-                </ul>
+            <div className="space-y-8">
+              <div className="bg-white rounded-xl shadow p-6 flex flex-col md:flex-row items-center gap-6">
+                <div className="flex-shrink-0 flex items-center justify-center w-20 h-20 rounded-full bg-blue-100">
+                  <LightBulbIcon className="w-12 h-12 text-blue-500" />
+                </div>
+                <div>
+                  <h3 className="text-2xl font-bold text-gray-900 leading-tight mb-2">Design Thinking in Education</h3>
+                  <p className="text-gray-600 leading-relaxed text-base mb-4">
+                    Design Thinking is a powerful approach to problem-solving that helps students develop essential skills
+                    like empathy, critical thinking, and creativity. It's particularly effective in education because it:
+                  </p>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    {benefits.map((b, i) => (
+                      <div key={i} className="flex items-center bg-blue-50 rounded px-3 py-2 text-blue-900 font-medium shadow-sm">
+                        <SparklesIcon className="w-5 h-5 mr-2 text-blue-400" />
+                        <span>{b}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <div className="bg-gradient-to-r from-green-50 to-green-100 rounded-xl shadow p-6 flex flex-col md:flex-row items-center gap-6">
+                <div className="flex-shrink-0 flex items-center justify-center w-20 h-20 rounded-full bg-green-100">
+                  <AcademicCapIcon className="w-12 h-12 text-green-500" />
+                </div>
+                <div>
+                  <h4 className="font-semibold text-green-800 mb-2 text-lg">Tips for Teachers</h4>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    {teacherTips.map((tip, i) => (
+                      <div key={i} className="flex items-center bg-green-50 rounded px-3 py-2 text-green-900 font-medium shadow-sm">
+                        <SparklesIcon className="w-5 h-5 mr-2 text-green-400" />
+                        <span>{tip}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           )}
