@@ -1,8 +1,5 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8;
 }
 
 .logo {
@@ -42,176 +39,131 @@
 }
 
 .design-process {
-  margin: 2rem 0;
-  position: relative;
-  padding: 1rem;
-  background: linear-gradient(to right, #f0f9ff, #e0f2fe);
-  border-radius: 1rem;
-  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  @apply my-8 relative p-6 bg-gradient-to-r from-blue-50 to-blue-100 
+         rounded-2xl shadow-lg border border-blue-200;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .process-line {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(to right, #3b82f6, #60a5fa, #93c5fd);
-  transform: translateY(-50%);
-  z-index: 1;
+  @apply absolute top-1/2 left-0 right-0 h-1 
+         bg-gradient-to-r from-blue-500 via-blue-400 to-blue-300 
+         transform -translate-y-1/2 z-0;
+  margin: 0 2rem;
 }
 
 .phase-button {
-  position: relative;
-  z-index: 2;
-  transition: all 0.3s ease;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.phase-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  @apply relative z-10 transition-all duration-300 font-semibold uppercase tracking-wide
+         shadow-sm hover:-translate-y-1 hover:shadow-md;
+  margin: 0 auto;
 }
 
 .phase-button.active {
-  transform: scale(1.05);
-  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+  @apply transform scale-105 shadow-lg ring-2 ring-offset-2;
 }
 
 /* Phase-specific colors */
 .phase-button.empathize {
-  background-color: #fef3c7;
-  border: 2px solid #f59e0b;
-  color: #92400e;
-}
-
-.phase-button.empathize:hover {
-  background-color: #fde68a;
+  @apply bg-amber-50 border-2 border-amber-500 text-amber-800 
+         hover:bg-amber-100 ring-amber-500;
 }
 
 .phase-button.define {
-  background-color: #dbeafe;
-  border: 2px solid #3b82f6;
-  color: #1e40af;
-}
-
-.phase-button.define:hover {
-  background-color: #bfdbfe;
+  @apply bg-blue-50 border-2 border-blue-500 text-blue-800 
+         hover:bg-blue-100 ring-blue-500;
 }
 
 .phase-button.ideate {
-  background-color: #f3e8ff;
-  border: 2px solid #8b5cf6;
-  color: #5b21b6;
-}
-
-.phase-button.ideate:hover {
-  background-color: #e9d5ff;
+  @apply bg-purple-50 border-2 border-purple-500 text-purple-800 
+         hover:bg-purple-100 ring-purple-500;
 }
 
 .phase-button.prototype {
-  background-color: #dcfce7;
-  border: 2px solid #22c55e;
-  color: #166534;
-}
-
-.phase-button.prototype:hover {
-  background-color: #bbf7d0;
+  @apply bg-green-50 border-2 border-green-500 text-green-800 
+         hover:bg-green-100 ring-green-500;
 }
 
 .phase-button.test {
-  background-color: #fee2e2;
-  border: 2px solid #ef4444;
-  color: #991b1b;
-}
-
-.phase-button.test:hover {
-  background-color: #fecaca;
+  @apply bg-red-50 border-2 border-red-500 text-red-800 
+         hover:bg-red-100 ring-red-500;
 }
 
 /* Diverging/Converging indicators */
 .diverging, .converging {
-  font-weight: 600;
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  background-color: rgba(255, 255, 255, 0.8);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  @apply font-semibold px-4 py-2 rounded-full bg-opacity-80 backdrop-blur-sm
+         shadow-sm transition-all duration-300;
 }
 
 .diverging {
-  color: #1e40af;
+  @apply text-blue-800 bg-blue-50;
 }
 
 .converging {
-  color: #991b1b;
+  @apply text-purple-800 bg-purple-50;
 }
 
 /* Export button styling */
 .export-button {
-  background: linear-gradient(135deg, #3b82f6, #2563eb);
-  color: white;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.export-button:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  @apply bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold
+         px-6 py-3 rounded-lg shadow-md transition-all duration-300
+         hover:-translate-y-1 hover:shadow-lg hover:from-blue-700 hover:to-blue-800
+         focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2;
 }
 
 /* Activity card enhancements */
 .activity-card {
-  transition: all 0.3s ease;
-  border: 2px solid transparent;
+  @apply bg-white rounded-xl shadow-md border border-gray-100
+         transition-all duration-300 hover:-translate-y-1 hover:shadow-xl
+         p-6 relative overflow-hidden;
 }
 
-.activity-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+.activity-card::before {
+  content: '';
+  @apply absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-blue-400;
 }
 
 /* Phase badges */
 .phase-badge {
-  font-size: 0.75rem;
-  font-weight: 600;
-  padding: 0.25rem 0.75rem;
-  border-radius: 9999px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  @apply text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider
+         inline-flex items-center space-x-1;
 }
 
 /* Age group badges */
 .age-badge {
-  font-size: 0.75rem;
-  font-weight: 600;
-  padding: 0.25rem 0.75rem;
-  border-radius: 9999px;
-  background-color: #f3f4f6;
-  color: #4b5563;
+  @apply text-xs font-medium px-2.5 py-0.5 rounded-full
+         bg-gray-100 text-gray-600 border border-gray-200;
 }
 
 /* Session activity styling */
 .session-activity {
-  transition: all 0.2s ease;
-  border-left: 4px solid #3b82f6;
+  @apply bg-white rounded-lg shadow-sm border-l-4 border-blue-500
+         p-4 mb-4 transition-all duration-200
+         hover:shadow-md hover:bg-gray-50;
 }
 
-.session-activity:hover {
-  background-color: #f8fafc;
+/* Educational content styling */
+.educational-content {
+  @apply bg-white rounded-xl shadow-md border border-gray-100
+         p-6 my-6 relative overflow-hidden;
 }
 
-/* Print styles */
-@media print {
-  .design-process,
-  .phase-button,
-  .export-button {
-    display: none;
-  }
+.educational-content::before {
+  content: '';
+  @apply absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-purple-400;
+}
+
+.educational-content h3 {
+  @apply text-xl font-semibold text-gray-900 mb-4;
+}
+
+.educational-content h4 {
+  @apply text-lg font-medium text-gray-800 mb-3;
+}
+
+.educational-content p {
+  @apply text-gray-600 leading-relaxed mb-4;
 }
 
 /* Tooltip styles */
@@ -221,44 +173,20 @@
 }
 
 .tooltip .tooltip-text {
-  visibility: hidden;
-  width: 200px;
-  background-color: #1f2937;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 0.5rem;
-  position: absolute;
-  z-index: 1;
-  bottom: 125%;
-  left: 50%;
-  transform: translateX(-50%);
-  opacity: 0;
-  transition: opacity 0.3s;
+  @apply invisible w-48 bg-gray-900 text-white text-center rounded-lg py-2 px-3
+         absolute z-50 bottom-full left-1/2 transform -translate-x-1/2
+         opacity-0 transition-opacity duration-300;
 }
 
 .tooltip:hover .tooltip-text {
-  visibility: visible;
-  opacity: 1;
+  @apply visible opacity-100;
 }
 
-/* Educational content styling */
-.educational-content {
-  background-color: #f8fafc;
-  border-left: 4px solid #3b82f6;
-  padding: 1rem;
-  margin: 1rem 0;
-  border-radius: 0.5rem;
-}
-
-.educational-content h4 {
-  color: #1e40af;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-}
-
-.educational-content p {
-  color: #4b5563;
-  font-size: 0.875rem;
-  line-height: 1.5;
+/* Print styles */
+@media print {
+  .design-process,
+  .phase-button,
+  .export-button {
+    @apply hidden;
+  }
 }

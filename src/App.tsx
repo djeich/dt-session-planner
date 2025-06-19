@@ -7,12 +7,17 @@ import FilterBar from './components/FilterBar'
 import { SessionExport } from './components/SessionExport'
 import { GuidedTour } from './components/GuidedTour'
 import { EducationalContent } from './components/EducationalContent'
+import { motion, AnimatePresence } from 'framer-motion'
 import {
   Heart,
   BarChart3,
   Lightbulb,
   Wrench,
   TestTube,
+  Clock,
+  X,
+  FileDown,
+  BookOpen
 } from 'lucide-react'
 import './App.css'
 
@@ -39,11 +44,11 @@ function App() {
   }
 
   const phaseColors = {
-    Empathize: 'from-amber-200 to-amber-100 border-amber-300',
-    Define: 'from-blue-200 to-blue-100 border-blue-300',
-    Ideate: 'from-purple-200 to-purple-100 border-purple-300',
-    Prototype: 'from-green-200 to-green-100 border-green-300',
-    Test: 'from-red-200 to-red-100 border-red-300',
+    Empathize: 'from-amber-200 to-amber-100 border-amber-300 hover:from-amber-300 hover:to-amber-200',
+    Define: 'from-blue-200 to-blue-100 border-blue-300 hover:from-blue-300 hover:to-blue-200',
+    Ideate: 'from-purple-200 to-purple-100 border-purple-300 hover:from-purple-300 hover:to-purple-200',
+    Prototype: 'from-green-200 to-green-100 border-green-300 hover:from-green-300 hover:to-green-200',
+    Test: 'from-red-200 to-red-100 border-red-300 hover:from-red-300 hover:to-red-200',
   }
 
   const phaseDescriptions: Record<Phase, string> = {
@@ -67,147 +72,240 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
       <GuidedTour />
       
-      <header className="py-10">
-        <div className="max-w-3xl mx-auto px-4">
-          <div className="bg-gradient-to-r from-blue-600 to-purple-500 rounded-2xl shadow-lg p-8 flex flex-col items-center mb-6">
-            <h1 className="text-4xl md:text-5xl font-extrabold text-white drop-shadow mb-2 text-center">Design Thinking Session Planner</h1>
-            <p className="mt-2 text-blue-100 text-lg text-center font-medium">Plan engaging design thinking activities for your classroom</p>
-          </div>
+      <motion.header 
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="py-10"
+      >
+        <div className="max-w-4xl mx-auto px-4">
+          <motion.div 
+            className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl shadow-lg p-8 flex flex-col items-center mb-6"
+            whileHover={{ scale: 1.01 }}
+            transition={{ type: "spring", stiffness: 300 }}
+          >
+            <h1 className="text-4xl md:text-5xl font-extrabold text-white drop-shadow-lg mb-2 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-100 to-purple-100">
+              Design Thinking Session Planner
+            </h1>
+            <p className="mt-2 text-blue-100 text-lg text-center font-medium">
+              Plan engaging design thinking activities for your classroom
+            </p>
+          </motion.div>
         </div>
-      </header>
+      </motion.header>
 
       <main className="max-w-7xl mx-auto px-4 py-8">
         <EducationalContent />
 
-        <div className="educational-content mb-8">
-          <h4 className="text-lg font-semibold text-gray-900 leading-tight">What is Design Thinking?</h4>
+        <motion.div 
+          className="bg-white rounded-xl shadow-soft p-6 mb-8 border border-gray-100"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+        >
+          <div className="flex items-center gap-2 mb-3">
+            <BookOpen className="w-5 h-5 text-blue-600" />
+            <h4 className="text-lg font-semibold text-gray-900">What is Design Thinking?</h4>
+          </div>
           <p className="text-gray-600 leading-relaxed">
             Design Thinking is a human-centered approach to problem-solving that encourages creativity and innovation. 
             It's a process that helps students develop empathy, think critically, and create solutions that meet real user needs.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="design-process mb-10">
+        <motion.div 
+          className="design-process mb-10"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4 }}
+        >
           <div className="process-line"></div>
-          <div className="flex flex-wrap justify-between items-center relative z-10 gap-4 md:gap-0">
-            {phases.map((phase) => {
+          <div className="flex flex-wrap md:flex-nowrap justify-between items-center relative z-10 gap-4">
+            {phases.map((phase, index) => {
               const Icon = phaseIcons[phase]
               return (
-                <div key={phase} className="tooltip flex-1 min-w-[120px] flex justify-center">
-                  <button
+                <motion.div 
+                  key={phase} 
+                  className="tooltip flex-1 min-w-[120px] flex justify-center"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 * index }}
+                >
+                  <motion.button
                     onClick={() => setSelectedPhase(phase)}
-                    className={`phase-button w-32 h-32 flex flex-col items-center justify-center px-0 py-0 rounded-xl font-semibold text-lg border-2 shadow transition-all duration-200 bg-gradient-to-br ${phaseColors[phase]} ${
-                      selectedPhase === phase ? 'scale-105 ring-4 ring-blue-300' : 'hover:scale-105 hover:ring-2 hover:ring-blue-200'
+                    className={`phase-button w-24 h-24 md:w-28 md:h-28 flex flex-col items-center justify-center px-0 py-0 rounded-xl font-semibold text-sm md:text-base border-2 shadow-md transition-all duration-300 bg-gradient-to-br ${phaseColors[phase]} ${
+                      selectedPhase === phase ? 'scale-105 ring-4 ring-blue-300' : ''
                     } overflow-hidden`}
-                    style={{ minWidth: '8rem', minHeight: '8rem', maxWidth: '8rem', maxHeight: '8rem' }}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                   >
-                    <Icon className="mb-2" size={24} />
-                    <span className="text-base font-bold tracking-wide mt-1">{phase.toUpperCase()}</span>
-                  </button>
+                    <Icon className="mb-2" size={20} />
+                    <span className="font-bold tracking-wide mt-1">{phase.toUpperCase()}</span>
+                  </motion.button>
                   <span className="tooltip-text">{phaseDescriptions[phase]}</span>
-                </div>
+                </motion.div>
               )
             })}
           </div>
-          <div className="flex justify-between mt-4 text-sm text-gray-600">
-            <span className="diverging">Diverging (Explore & Generate)</span>
-            <span className="converging">Converging (Refine & Focus)</span>
+          <div className="flex justify-between mt-6 text-sm">
+            <span className="diverging bg-blue-50 text-blue-700 px-4 py-2 rounded-full shadow-sm">
+              Diverging (Explore & Generate)
+            </span>
+            <span className="converging bg-purple-50 text-purple-700 px-4 py-2 rounded-full shadow-sm">
+              Converging (Refine & Focus)
+            </span>
           </div>
-        </div>
+        </motion.div>
 
-        {selectedPhase && (
-          <>
-            <div className="educational-content mt-8">
-              <h4 className="text-lg font-semibold text-gray-900 leading-tight">{selectedPhase} Phase</h4>
-              <p className="text-gray-600 leading-relaxed">{phaseDescriptions[selectedPhase]}</p>
-            </div>
-            <FilterBar onFilterChange={handleFilterChange} />
-            <div className="bg-white rounded-lg shadow p-6 mt-4">
-              <h3 className="text-lg font-semibold mb-4 leading-tight">{selectedPhase} Activities</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredActivities.map((activity) => (
-                  <ActivityCard
-                    key={activity.id}
-                    activity={activity}
-                    onSelect={setSelectedActivity}
-                    onAddToSession={() => {
-                      if (!sessionActivities.find(a => a.id === activity.id)) {
-                        setSessionActivities([...sessionActivities, activity])
-                      }
-                    }}
-                  />
-                ))}
-              </div>
-            </div>
-          </>
-        )}
-
-        {sessionActivities.length > 0 && (
-          <div className="mt-8">
-            <div className="bg-gradient-to-r from-purple-100 to-blue-100 rounded-2xl shadow-lg p-8 session-plan border-2 border-blue-200">
-              <div className="flex justify-between items-center mb-6">
-                <h3 className="text-2xl font-bold text-blue-900 flex items-center gap-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17v-2a4 4 0 014-4h6m-6 0V7a4 4 0 00-4-4H5a4 4 0 00-4 4v10a4 4 0 004 4h6a4 4 0 004-4z" /></svg>
-                  Your Session Plan
-                </h3>
-                <button
-                  onClick={() => setShowExport(true)}
-                  className="export-button px-6 py-2 rounded-lg bg-gradient-to-r from-blue-500 to-purple-500 text-white font-semibold shadow hover:from-blue-600 hover:to-purple-600 transition-all duration-200"
-                >
-                  Export Session
-                </button>
-              </div>
-              <div className="space-y-4">
-                {sessionActivities.map((activity, index) => (
-                  <div key={activity.id} className="session-activity p-4 bg-white rounded-xl border border-blue-100 flex justify-between items-center shadow-sm">
-                    <div>
-                      <h4 className="font-semibold text-lg text-gray-900 leading-tight">{activity.name}</h4>
-                      <div className="flex items-center gap-3 mt-1">
-                        <span className="flex items-center gap-1 text-blue-700 bg-blue-50 px-2 py-1 rounded-full text-xs font-medium">
-                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3" /></svg>
-                          {activity.duration} min
-                        </span>
-                        <span className="text-xs text-gray-500">{activity.phase}</span>
-                      </div>
-                    </div>
-                    <button
-                      onClick={() => setSessionActivities(sessionActivities.filter((_, i) => i !== index))}
-                      className="ml-4 px-3 py-1 rounded bg-red-100 text-red-700 font-semibold hover:bg-red-200 transition-colors duration-200"
+        <AnimatePresence mode="wait">
+          {selectedPhase && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+            >
+              <motion.div 
+                className="bg-white rounded-xl shadow-soft p-6 mb-8 border border-gray-100"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.2 }}
+              >
+                <h4 className="text-lg font-semibold text-gray-900 mb-2">{selectedPhase} Phase</h4>
+                <p className="text-gray-600 leading-relaxed">{phaseDescriptions[selectedPhase]}</p>
+              </motion.div>
+              <FilterBar onFilterChange={handleFilterChange} />
+              <motion.div 
+                className="bg-white rounded-xl shadow-soft p-6 mt-4 border border-gray-100"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.3 }}
+              >
+                <h3 className="text-lg font-semibold mb-4">{selectedPhase} Activities</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {filteredActivities.map((activity, index) => (
+                    <motion.div
+                      key={activity.id}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.1 * index }}
                     >
-                      Remove
-                    </button>
-                  </div>
-                ))}
-                <div className="text-right text-lg text-blue-900 font-bold mt-4">
-                  Total Duration: {totalDuration} minutes
+                      <ActivityCard
+                        activity={activity}
+                        onSelect={setSelectedActivity}
+                        onAddToSession={() => {
+                          if (!sessionActivities.find(a => a.id === activity.id)) {
+                            setSessionActivities([...sessionActivities, activity])
+                          }
+                        }}
+                      />
+                    </motion.div>
+                  ))}
                 </div>
-              </div>
-            </div>
-          </div>
-        )}
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
-        {selectedActivity && (
-          <ActivityDetail
-            activity={selectedActivity}
-            onClose={() => setSelectedActivity(null)}
-            onAddToSession={() => {
-              if (!sessionActivities.find(a => a.id === selectedActivity.id)) {
-                setSessionActivities([...sessionActivities, selectedActivity])
-              }
-              setSelectedActivity(null)
-            }}
-          />
-        )}
+        <AnimatePresence>
+          {sessionActivities.length > 0 && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="mt-8"
+            >
+              <motion.div 
+                className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl shadow-soft p-8 border-2 border-blue-200"
+                whileHover={{ scale: 1.01 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <div className="flex justify-between items-center mb-6">
+                  <h3 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
+                    <Clock className="w-6 h-6 text-blue-600" />
+                    Your Session Plan
+                  </h3>
+                  <motion.button
+                    onClick={() => setShowExport(true)}
+                    className="export-button"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <FileDown className="w-5 h-5 mr-2 inline-block" />
+                    Export Session
+                  </motion.button>
+                </div>
+                <div className="space-y-4">
+                  {sessionActivities.map((activity, index) => (
+                    <motion.div
+                      key={activity.id}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.1 * index }}
+                      className="session-activity"
+                    >
+                      <div className="flex justify-between items-center">
+                        <div>
+                          <h4 className="font-semibold text-lg text-gray-900">{activity.name}</h4>
+                          <div className="flex items-center gap-3 mt-1">
+                            <span className="flex items-center gap-1 text-blue-700 bg-blue-50 px-3 py-1 rounded-full text-sm font-medium">
+                              <Clock className="w-4 h-4" />
+                              {activity.duration} min
+                            </span>
+                            <span className="text-sm text-gray-500">{activity.phase}</span>
+                          </div>
+                        </div>
+                        <motion.button
+                          onClick={() => setSessionActivities(sessionActivities.filter((_, i) => i !== index))}
+                          className="ml-4 p-2 rounded-full bg-red-50 text-red-600 hover:bg-red-100 transition-colors duration-200"
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.9 }}
+                        >
+                          <X className="w-4 h-4" />
+                        </motion.button>
+                      </div>
+                    </motion.div>
+                  ))}
+                  <motion.div 
+                    className="flex justify-end items-center gap-2 mt-6 text-lg font-bold text-gray-900"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.5 }}
+                  >
+                    <Clock className="w-5 h-5 text-blue-600" />
+                    Total Duration: {totalDuration} minutes
+                  </motion.div>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
-        {showExport && (
-          <SessionExport
-            activities={sessionActivities}
-            onClose={() => setShowExport(false)}
-          />
-        )}
+        <AnimatePresence>
+          {selectedActivity && (
+            <ActivityDetail
+              activity={selectedActivity}
+              onClose={() => setSelectedActivity(null)}
+              onAddToSession={() => {
+                if (!sessionActivities.find(a => a.id === selectedActivity.id)) {
+                  setSessionActivities([...sessionActivities, selectedActivity])
+                }
+                setSelectedActivity(null)
+              }}
+            />
+          )}
+        </AnimatePresence>
+
+        <AnimatePresence>
+          {showExport && (
+            <SessionExport
+              activities={sessionActivities}
+              onClose={() => setShowExport(false)}
+            />
+          )}
+        </AnimatePresence>
       </main>
     </div>
   )
